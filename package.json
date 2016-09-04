@@ -1,0 +1,36 @@
+{
+  "name": "overwatch-api",
+  "version": "0.0.1",
+  "description": "Overwatch API",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "eslint": "^3.4.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1",
+    "srv-cli": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfg/overwatch-api.git"
+  },
+  "keywords": [
+    "node",
+    "overwatch",
+    "api",
+    "rest",
+    "http",
+    "srv",
+    "express"
+  ],
+  "author": "Alf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alfg/overwatch-api/issues"
+  },
+  "homepage": "https://github.com/alfg/overwatch-api#readme"
+}

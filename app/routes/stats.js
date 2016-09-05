@@ -4,9 +4,9 @@ const router = express.Router();
 import parse from '../parser/stats';
 
 /**
- * @api {get} /profile/:platform/:region/:tag Get profile of player.
- * @apiName GetProfile
- * @apiGroup Profile
+ * @api {get} /stats/:platform/:region/:tag Get profile of player.
+ * @apiName GetStats
+ * @apiGroup Stats
  *
  * @apiParam {String} platform Name of user. pc/xbl/psn
  * @apiParam {String} region Region of player. us/eu/kr/cn/global
@@ -14,33 +14,15 @@ import parse from '../parser/stats';
  * @apiSuccess {Object} data Profile data.
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://localhost:3000/stats/pc/us/kasey-12623
+ *  curl -i http://localhost:3000/stats/pc/us/user-12345
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK
     {
-     data: {
-        username: "kasey",
-        games: {
-          quickplay: {
-            wins: "252"
-          },
-          competitive: {
-            wins: "9",
-            lost: 18,
-            played: "27"
-          }
-        },
-        playtime: {
-          quickplay: "63 hours",
-          competitive: "5 hours"
-        },
-        competitive: {
-          rank: "2083",
-          rank_img: "https://blzgdapipro-a.akamaihd.net/game/rank-icons/rank-10.png"
-        },
-        levelFrame: "https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x025000000000091F_Border.png",
-        star: ""
+      username: "user"
+      stats: {
+        top_heroes: {...}
+        combat: {...}
       }
     }
  */

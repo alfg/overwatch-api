@@ -14,13 +14,13 @@ import parse from '../parser/profile';
  * @apiSuccess {Object} data Profile data.
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://localhost:3000/profile/pc/us/kasey-12623
+ *  curl -i http://localhost:3000/profile/pc/us/user-12345
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK
     {
      data: {
-        username: "kasey",
+        username: "user",
         games: {
           quickplay: {
             wins: "252"

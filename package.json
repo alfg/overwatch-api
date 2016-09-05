@@ -12,7 +12,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node node_modules/srv-cli/build/srv app/index.js",
+    "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
+    "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes"
   },
   "repository": {
     "type": "git",

@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Overwatch API",
   "main": "index.js",
+  "engines": {
+    "node": "6.4.0"
+  },
   "dependencies": {
     "cheerio": "^0.22.0",
     "eslint": "^3.4.0",

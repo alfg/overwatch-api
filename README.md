@@ -75,9 +75,5 @@ Generate docs with the `--docs app/routes` flag.
 
 See [srv](https://github.com/alfg/srv) documentation for more info on srv specific options.
 
-## TODO
-* Complete Career Stats
-* Caching
-
 ## License
 MIT

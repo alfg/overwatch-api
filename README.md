@@ -3,6 +3,8 @@ An unofficial [Overwatch](https://playoverwatch.com) HTTP API, built with NodeJS
 
 **Currently a work-in-progress project!**
 
+![](overwatch.jpg)
+
 ## Features
 * Profile Data
 * Career Stats

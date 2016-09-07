@@ -3,7 +3,7 @@ const rp = require('request-promise');
 
 export default function(platform, region, tag, cb) {
 
-  let url = `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}`;
+  const url = `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}`;
 
   rp(url).then((htmlString) => {
 

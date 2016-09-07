@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 import parse from '../parser/profile';
+import cache from '../cache';
 
 /**
  * @api {get} /profile/:platform/:region/:tag Get profile of player.
@@ -14,7 +15,7 @@ import parse from '../parser/profile';
  * @apiSuccess {Object} data Profile data.
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://localhost:3000/profile/pc/us/user-12345
+ *  curl -i http://ow-api.herokuapp.com/profile/pc/us/user-12345
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK
@@ -50,9 +51,18 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const region = req.params.region;
   const tag = req.params.tag;
 
-	parse(platform, region, tag, (data) => {
-		res.json(data);
-	});
+  const cacheKey = `profile_${platform}_${region}_${tag}`;
+  const timeout = 60 * 5; // 5 minutes.
+
+  cache.getOrSet(cacheKey, timeout, getProfile, function(data) {
+  	res.json(data);
+  });
+
+  function getProfile(callback) {
+  	parse(platform, region, tag, (data) => {
+      callback(data);
+  	});
+  }
 });
 
 export default router;

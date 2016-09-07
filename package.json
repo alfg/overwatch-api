@@ -9,6 +9,7 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "eslint": "^3.4.0",
+    "node-cache": "^3.2.1",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
     "srv-cli": "^0.3.3"

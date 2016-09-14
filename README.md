@@ -49,6 +49,11 @@ Please note, the hosted Heroku app above is for development and testing purposes
 
 A production-ready hosted service is TBD.
 
+Or deploy your own Heroku instance!
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/alfg/overwatch-api)
+
+
 ## Install
 
 #### Requirements

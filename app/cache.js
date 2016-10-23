@@ -12,9 +12,9 @@ var cache = {
     myCache.get(cacheKey, function(err, value) {
       if (!err) {
         if (value == undefined) {
-
           fn(function(data) {
-            myCache.set(cacheKey, data, timeout);
+            if (!(data.statusCode))
+              myCache.set(cacheKey, data, timeout);
             callback(data);
           });
         } else {

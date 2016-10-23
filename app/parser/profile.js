@@ -79,5 +79,7 @@ export default function(platform, region, tag, cb) {
     }
 
     cb(json);
+  }).catch(err => {
+    cb(err);
   });
 }

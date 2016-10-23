@@ -37,13 +37,17 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const timeout = 60 * 5; // 5 minutes.
 
   cache.getOrSet(cacheKey, timeout, getStats, function(data) {
-  	res.json(data);
+    if (data.statusCode) {
+      res.status(data.response.statusCode).send(data.response.statusMessage);
+    } else {
+      res.json(data);
+    }
   });
 
   function getStats(callback) {
-  	parse(platform, region, tag, (data) => {
+    parse(platform, region, tag, (data) => {
       callback(data);
-  	});
+    });
   }
 });
 

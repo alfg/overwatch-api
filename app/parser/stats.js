@@ -18,7 +18,7 @@ export default function(platform, region, tag, cb) {
     //
 
     // Quickplay.
-    const quickplayTopHeroesEls = $('#quick-play [data-category-id="overwatch.guid.0x0860000000000021"]')
+    const quickplayTopHeroesEls = $('#quickplay [data-category-id="overwatch.guid.0x0860000000000021"]')
       .find('.progress-category-item');
     let quickplayTopHeroes = [];
     quickplayTopHeroesEls.each(function(i, el) {
@@ -32,7 +32,7 @@ export default function(platform, region, tag, cb) {
     stats['top_heroes']['quickplay'] = quickplayTopHeroes;
 
     // Competitive.
-    const compTopHeroesEls = $('#competitive-play [data-category-id="overwatch.guid.0x0860000000000021"]')
+    const compTopHeroesEls = $('#competitive [data-category-id="overwatch.guid.0x0860000000000021"]')
       .find('.progress-category-item');
     let compTopHeroes = [];
     compTopHeroesEls.each(function(i, el) {
@@ -61,7 +61,7 @@ export default function(platform, region, tag, cb) {
 
     // Quickplay Stats.
     statCategories.forEach(function(item) {
-      const els = $(`#quick-play [data-category-id="0x02E00000FFFFFFFF"] span:contains("${item}")`).closest('table').find('tbody tr');
+      const els = $(`#quickplay [data-category-id="0x02E00000FFFFFFFF"] span:contains("${item}")`).closest('table').find('tbody tr');
       let statsArr = [];
       els.each(function(i, el) {
         let stat = {};
@@ -76,7 +76,7 @@ export default function(platform, region, tag, cb) {
 
     // Competitive Stats.
     statCategories.forEach(function(item) {
-      const els = $(`#competitive-play [data-category-id="0x02E00000FFFFFFFF"] span:contains("${item}")`).closest('table').find('tbody tr');
+      const els = $(`#competitive [data-category-id="0x02E00000FFFFFFFF"] span:contains("${item}")`).closest('table').find('tbody tr');
       let statsArr = [];
       els.each(function(i, el) {
         let stat = {};

@@ -19,13 +19,13 @@ export default function(platform, region, tag, cb) {
     let compRankImg;
     let star = '';
 
-    const quickplayWonEl = $('#quick-play td:contains("Games Won")').next().html();
-    const quickplayPlayedEl = $('#quick-play td:contains("Games Played")').next().html();
-    const quickplayTimePlayedEl = $('#quick-play td:contains("Time Played")').next().html();
+    const quickplayWonEl = $('#quickplay td:contains("Games Won")').next().html();
+    const quickplayPlayedEl = $('#quickplay td:contains("Games Played")').next().html();
+    const quickplayTimePlayedEl = $('#quickplay td:contains("Time Played")').next().html();
 
-    const compWonEl = $('#competitive-play td:contains("Games Won")').next().html();
-    const compPlayedEl = $('#competitive-play td:contains("Games Played")').next().html();
-    const compTimePlayedEl = $('#competitive-play td:contains("Time Played")').next().html();
+    const compWonEl = $('#competitive td:contains("Games Won")').next().html();
+    const compPlayedEl = $('#competitive td:contains("Games Played")').next().html();
+    const compTimePlayedEl = $('#competitive td:contains("Time Played")').next().html();
     const compRankEl = $('.competitive-rank');
 
     const levelFrame = $('.player-level').attr('style').slice(21, 109);

@@ -10,6 +10,8 @@ export default function(platform, region, tag, cb) {
     // Begin html parsing.
     const $ = cheerio.load(htmlString);
     const user = $('.header-masthead').text();
+    const level = $('.player-level div').first().text();
+    const portrait = $('.player-portrait').attr('src');
     const won = {};
     const lost = {};
     const played = {};
@@ -68,6 +70,8 @@ export default function(platform, region, tag, cb) {
 
     const json = {
       username: user,
+      level: parseInt(level),
+      portrait: portrait,
       games: {
         quickplay: { wins: won.quickplay, lost: lost.quickplay, played: played.quickplay },
         competitive: { wins: won.competitive, lost: lost.competitive, played: played.competitive },

@@ -3,7 +3,7 @@ const rp = require('request-promise');
 
 export default function(platform, region, tag, cb) {
 
-  const url = `https://playoverwatch.com/en-us/career/${platform}${region === 'global' ? '/' : ('/' + region + '/')}${tag}`;
+  const url = platform === 'pc' ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}` : `https://playoverwatch.com/en-us/career/${platform}/${tag}`;
 
   rp(url).then((htmlString) => {
 

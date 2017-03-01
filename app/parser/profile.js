@@ -7,7 +7,12 @@ export default function(platform, region, tag, cb) {
     ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}`
     : `https://playoverwatch.com/en-us/career/${platform}/${tag}`;
 
-  rp(url).then((htmlString) => {
+  const options = {
+    uri: encodeURI(url),
+    encoding: 'utf8'
+  }
+
+  rp(options).then((htmlString) => {
 
     // Begin html parsing.
     const $ = cheerio.load(htmlString);

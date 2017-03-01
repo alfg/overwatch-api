@@ -1,6 +1,6 @@
 {
   "name": "overwatch-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Overwatch API",
   "main": "index.js",
   "engines": {
@@ -18,7 +18,7 @@
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv app/index.js",
     "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
-    "docs": "node node_modules/srv-cli/build/srv app/index.js --dos app/routes"
+    "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes"
   },
   "repository": {
     "type": "git",

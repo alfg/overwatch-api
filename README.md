@@ -3,7 +3,7 @@ An unofficial [Overwatch](https://playoverwatch.com) HTTP API, built with NodeJS
 
 ![](overwatch.jpg)
 
-[![npm](https://img.shields.io/npm/v/overwatch-api.svg?maxAge=2592000)](https://www.npmjs.com/package/overwatch-api)
+[![npm](https://img.shields.io/npm/v/overwatch-api.svg)](https://www.npmjs.com/package/overwatch-api)
 
 ## Features
 * Profile Data

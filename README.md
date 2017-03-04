@@ -26,7 +26,6 @@ curl http://ow-api.herokuapp.com/profile/pc/us/Alf-1608
         },
         "competitive": {
             "wins": "11",
-            "lost": 21,
             "played": "32"
         }
     },

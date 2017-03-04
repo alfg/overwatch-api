@@ -20,7 +20,6 @@ export default function(platform, region, tag, cb) {
     const level = $('.player-level div').first().text();
     const portrait = $('.player-portrait').attr('src');
     const won = {};
-    const lost = {};
     const played = {};
     const time = {};
 
@@ -51,7 +50,6 @@ export default function(platform, region, tag, cb) {
 
     if (quickplayPlayedEl !== null) {
       played.quickplay = quickplayPlayedEl.trim().replace(/,/g, '');
-      lost.quickplay = played.quickplay - won.quickplay;
     }
 
     if (quickplayTimePlayedEl !== null) {
@@ -64,7 +62,6 @@ export default function(platform, region, tag, cb) {
 
     if (compPlayedEl !== null) {
       played.competitive = compPlayedEl.trim().replace(/,/g, '');
-      lost.competitive = played.competitive - won.competitive;
     }
 
     if (compTimePlayedEl !== null) {
@@ -80,8 +77,8 @@ export default function(platform, region, tag, cb) {
       level: parseInt(level),
       portrait: portrait,
       games: {
-        quickplay: { wins: won.quickplay, lost: lost.quickplay, played: played.quickplay },
-        competitive: { wins: won.competitive, lost: lost.competitive, played: played.competitive },
+        quickplay: { wins: won.quickplay, played: played.quickplay },
+        competitive: { wins: won.competitive, played: played.competitive },
       },
       playtime: { quickplay: time.quickplay, competitive: time.competitive },
       competitive: { rank: compRank, rank_img: compRankImg },

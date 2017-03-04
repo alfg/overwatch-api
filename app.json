@@ -1,0 +1,14 @@
+{
+  "name": "overwatch-api",
+  "description": "An Unofficial Overwatch API",
+  "repository": "https://github.com/alfg/overwatch-api",
+  "keywords": [
+    "node", 
+    "overwatch",
+    "api",
+    "rest",
+    "http",
+    "srv",
+    "express"
+  ]
+}

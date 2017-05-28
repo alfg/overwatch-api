@@ -1,5 +1,6 @@
-const cheerio = require('cheerio');
-const rp = require('request-promise');
+import cheerio from 'cheerio';
+import rp from 'request-promise';
+import { getPrestigeLevel } from './utils';
 
 export default function(platform, region, tag, cb) {
 
@@ -19,6 +20,12 @@ export default function(platform, region, tag, cb) {
     const user = $('.header-masthead').text();
     const level = $('.player-level div').first().text();
     const portrait = $('.player-portrait').attr('src');
+
+    // Get prestige level by matching .player-level background url hex.
+    const prestigeEl = $('.player-level').first().attr('style');
+    const prestigeHex = prestigeEl.match(/0x0*[1-9a-fA-F][0-9a-fA-F]*/);
+    const prestigeLevel = prestigeHex ? getPrestigeLevel(prestigeHex[0]) : 0;
+
     const won = {};
     const played = {};
     const time = {};
@@ -74,7 +81,7 @@ export default function(platform, region, tag, cb) {
 
     const json = {
       username: user,
-      level: parseInt(level),
+      level: parseInt(level) + prestigeLevel,
       portrait: portrait,
       games: {
         quickplay: { wins: won.quickplay, played: played.quickplay },

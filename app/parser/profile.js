@@ -27,6 +27,8 @@ export default function(platform, region, tag, cb) {
     const prestigeLevel = prestigeHex ? getPrestigeLevel(prestigeHex[0]) : 0;
 
     const won = {};
+    const lost = {};
+    const draw = {};
     const played = {};
     const time = {};
 
@@ -40,6 +42,8 @@ export default function(platform, region, tag, cb) {
 
     const compWonEl = $('#competitive td:contains("Games Won")').next().html();
     const compPlayedEl = $('#competitive td:contains("Games Played")').next().html();
+    const compLostEl = $('#competitive td:contains("Games Lost")').next().html();
+    const compDrawEl = $('#competitive td:contains("Games Tied")').next().html();
     const compTimePlayedEl = $('#competitive td:contains("Time Played")').next().html();
     const compRankEl = $('.competitive-rank');
 
@@ -67,6 +71,14 @@ export default function(platform, region, tag, cb) {
       won.competitive = compWonEl.trim().replace(/,/g, '');
     }
 
+    if (compLostEl !== null) {
+      lost.competitive = compLostEl.trim().replace(/,/g, '');
+    }
+
+    if (compDrawEl !== null) {
+      draw.competitive = compDrawEl.trim().replace(/,/g, '');
+    }
+
     if (compPlayedEl !== null) {
       played.competitive = compPlayedEl.trim().replace(/,/g, '');
     }
@@ -84,11 +96,19 @@ export default function(platform, region, tag, cb) {
       level: parseInt(level) + prestigeLevel,
       portrait: portrait,
       games: {
-        quickplay: { wins: won.quickplay, played: played.quickplay },
-        competitive: { wins: won.competitive, played: played.competitive },
+        quickplay: {
+          won: parseInt(won.quickplay),
+          played: parseInt(played.quickplay) || undefined 
+        },
+        competitive: {
+          won: parseInt(won.competitive),
+          lost: parseInt(lost.competitive),
+          draw: parseInt(draw.competitive),
+          played: parseInt(played.competitive)
+        },
       },
       playtime: { quickplay: time.quickplay, competitive: time.competitive },
-      competitive: { rank: compRank, rank_img: compRankImg },
+      competitive: { rank: parseInt(compRank), rank_img: compRankImg },
       levelFrame: levelFrame,
       star: star
     }

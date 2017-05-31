@@ -22,11 +22,13 @@ curl http://ow-api.herokuapp.com/profile/pc/us/Alf-1608
     "username": "Alf",
     "games": {
         "quickplay": {
-            "wins": "508"
+            "won": 508
         },
         "competitive": {
-            "wins": "11",
-            "played": "32"
+            "won": 26,
+            "lost": 26,
+            "draw": 2,
+            "played": 54
         }
     },
     "playtime": {

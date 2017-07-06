@@ -13,8 +13,9 @@ var cache = {
       if (!err) {
         if (value == undefined) {
           fn(function(data) {
-            if (!(data.statusCode))
+            if (!(data.statusCode)) {
               myCache.set(cacheKey, data, timeout);
+            }
             callback(data);
           });
         } else {

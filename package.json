@@ -18,7 +18,8 @@
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv app/index.js",
     "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
-    "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes"
+    "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes",
+    "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv app/index.js"
   },
   "repository": {
     "type": "git",

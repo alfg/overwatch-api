@@ -3,6 +3,7 @@ const router = express.Router();
 
 import parse from '../parser/stats';
 import cache from '../cache';
+import utils from '../utils';
 
 /**
  * @api {get} /stats/:platform/:region/:tag Get profile of player.
@@ -12,6 +13,7 @@ import cache from '../cache';
  * @apiParam {String} platform Name of user. pc/xbl/psn
  * @apiParam {String} region Region of player. us/eu/kr/cn/global
  * @apiParam {String} tag BattleTag of user. Replace # with -.
+ * @apiParam (Query String Params) {String} include Query String parameter to specifiy include filters. Comma deliminated. 
  * @apiSuccess {Object} data Profile data.
  *
  * @apiExample {curl} Example usage:
@@ -32,6 +34,7 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const platform = req.params.platform;
   const region = req.params.region;
   const tag = req.params.tag;
+  const include = req.query.include && req.query.include.split(',') || null;
 
   const cacheKey = `stats_${platform}_${region}_${tag}`;
   const timeout = 60 * 5; // 5 minutes.
@@ -40,7 +43,8 @@ router.get('/:platform/:region/:tag', (req, res) => {
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {
-      res.json(data);
+      const filtered = utils.filterIncludes(include, data);
+      res.json(filtered);
     }
   });
 

@@ -1,16 +1,10 @@
 const utils = {
     filterIncludes(include, data) {
-        if (!include) {
+        if (!include || include.length == 0 || !data.hasOwnProperty(include[0])) {
             return data;
         }
-        // Filters response with include parameters.
-        const filtered = Object.keys(data)
-        .filter(key => include.includes(key))
-        .reduce((obj, key) => {
-            obj[key] = data[key];
-            return obj;
-        }, {});
-        return filtered;
+        let first = include.shift();
+        return filterIncludes(include, data[first]);
     }
 }
 

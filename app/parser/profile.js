@@ -103,7 +103,7 @@ export default function(platform, region, tag, cb) {
         competitive: {
           won: parseInt(won.competitive),
           lost: parseInt(lost.competitive),
-          draw: parseInt(draw.competitive),
+          draw: parseInt(draw.competitive) || 0,
           played: parseInt(played.competitive)
         },
       },

@@ -4,9 +4,9 @@ const utils = {
         if (!include || include.length == 0 || typeof data == "string" || !data.hasOwnProperty(include[0]))
             return data;
         let first = include.shift();
-        let output = {};
-        output[first] = this.filterIncludes(include, data[first]);
-        return output;
+        let filtered = {};
+        filtered[first] = this.filterIncludes(include, data[first]);
+        return filtered;
     }
 }
 

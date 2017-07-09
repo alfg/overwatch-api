@@ -4,12 +4,14 @@ const utils = {
         if (!include || include.length == 0 || !data.hasOwnProperty(include[0]))
             return data;
         let first = include.shift();
+        let output = {};
         if (typeof data[first] == "string"){
-            let output = {};
             output[first] = data[first];
-            return output;
         }
-        return filterIncludes(include, data[first]);
+        else{
+            output[first] = this.filterIncludes(include, data[first]);
+        }
+        return output;
     }
 }
 

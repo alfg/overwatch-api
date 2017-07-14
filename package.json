@@ -4,7 +4,7 @@
   "description": "Overwatch API",
   "main": "index.js",
   "engines": {
-    "node": "6.4.0"
+    "node": "6.11.1"
   },
   "dependencies": {
     "cheerio": "^0.22.0",

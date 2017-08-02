@@ -51,7 +51,7 @@ export default function(platform, region, tag, cb) {
     const starEl = $('.player-level .player-rank').html();
 
     if (compRankEl !== null) {
-      compRankImg = $('.competitive-rank img').attr('src');
+      compRankImg = $('.competitive-rank img').attr('src') || null;
       compRank = $('.competitive-rank div').html();
     }
 

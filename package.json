@@ -14,12 +14,16 @@
     "request-promise": "^4.1.1",
     "srv-cli": "^0.3.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-register": "^6.26.0"
+  },
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv app/index.js",
     "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
     "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes",
-    "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv app/index.js"
+    "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv app/index.js",
+    "test": "ava -v"
   },
   "repository": {
     "type": "git",
@@ -39,5 +43,14 @@
   "bugs": {
     "url": "https://github.com/alfg/overwatch-api/issues"
   },
-  "homepage": "https://github.com/alfg/overwatch-api"
+  "homepage": "https://github.com/alfg/overwatch-api",
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  }
 }

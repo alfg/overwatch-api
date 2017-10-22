@@ -33,3 +33,32 @@ test('get user top heroes information', t => {
     t.deepEqual(hero.img.startsWith('http'), true);
   });
 });
+
+test('get combat stats', t => {
+  t.is(result['stats']['combat']['quickplay'].length > 0, true);
+  result['stats']['combat']['quickplay'].map((stat) => {
+    t.deepEqual(typeof(stat.title), 'string');
+    t.deepEqual(typeof(stat.value), 'string');
+  });
+
+  t.is(result['stats']['combat']['competitive'].length > 0, true);
+  result['stats']['combat']['competitive'].map((stat) => {
+    t.deepEqual(typeof(stat.title), 'string');
+    t.deepEqual(typeof(stat.value), 'string');
+  });
+});
+
+test('get death stats', t => {
+  t.is(result['stats']['deaths']['quickplay'].length > 0, true);
+  result['stats']['deaths']['quickplay'].map((stat) => {
+    t.deepEqual(typeof(stat.title), 'string');
+    t.deepEqual(typeof(stat.value), 'string');
+  });
+
+  t.is(result['stats']['deaths']['competitive'].length > 0, true);
+  result['stats']['deaths']['competitive'].map((stat) => {
+    t.deepEqual(typeof(stat.title), 'string');
+    t.deepEqual(typeof(stat.value), 'string');
+  });
+});
+

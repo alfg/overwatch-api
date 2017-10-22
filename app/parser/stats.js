@@ -76,7 +76,7 @@ export default function(platform, region, tag, cb) {
 
     // Quickplay Stats.
     statCategories.forEach(function(item) {
-      const els = $(`#quickplay [data-category-id="0x02E00000FFFFFFFF"] span:contains("${item}")`).closest('table').find('tbody tr');
+      const els = $(`#quickplay [data-category-id="0x02E00000FFFFFFFF"] h5:contains("${item}")`).closest('table').find('tbody tr');
       let statsArr = [];
       els.each(function(i, el) {
         let stat = {};
@@ -91,7 +91,7 @@ export default function(platform, region, tag, cb) {
 
     // Competitive Stats.
     statCategories.forEach(function(item) {
-      const els = $(`#competitive [data-category-id="0x02E00000FFFFFFFF"] span:contains("${item}")`).closest('table').find('tbody tr');
+      const els = $(`#competitive [data-category-id="0x02E00000FFFFFFFF"] h5:contains("${item}")`).closest('table').find('tbody tr');
       let statsArr = [];
       els.each(function(i, el) {
         let stat = {};

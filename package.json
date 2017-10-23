@@ -17,14 +17,15 @@
   "devDependencies": {
     "ava": "^0.22.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "nyc": "^11.2.1"
   },
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv app/index.js",
     "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
     "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes",
     "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv app/index.js",
-    "test": "ava -v"
+    "test": "./node_modules/.bin/nyc ava -v"
   },
   "repository": {
     "type": "git",

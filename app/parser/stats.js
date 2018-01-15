@@ -65,7 +65,6 @@ export default function(platform, region, tag, cb) {
     //
     const statCategories = [
       'Combat',
-      'Deaths',
       'Match Awards',
       'Assists',
       'Average',

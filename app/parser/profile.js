@@ -47,7 +47,7 @@ export default function(platform, region, tag, cb) {
     const compTimePlayedEl = $('#competitive td:contains("Time Played")').next().html();
     const compRankEl = $('.competitive-rank');
 
-    const levelFrame = $('.player-level').attr('style').slice(21, 109);
+    const levelFrame = $('.player-level').attr('style').slice(21, -1);
     const starEl = $('.player-level .player-rank').html();
 
     if (compRankEl !== null) {
@@ -88,7 +88,7 @@ export default function(platform, region, tag, cb) {
     }
 
     if (starEl !== null) {
-      star = $('.player-level .player-rank').attr('style').slice(21, 107);
+      star = $('.player-level .player-rank').attr('style').slice(21, -1);
     }
 
     const json = {

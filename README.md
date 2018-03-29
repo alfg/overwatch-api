@@ -20,28 +20,30 @@ curl http://ow-api.herokuapp.com/profile/pc/us/Alf-1608
 ```
 ```json
 {
-    "username": "Alf",
-    "games": {
-        "quickplay": {
-            "won": 508
-        },
-        "competitive": {
-            "won": 26,
-            "lost": 26,
-            "draw": 2,
-            "played": 54
-        }
-    },
-    "playtime": {
-        "quickplay": "122 hours",
-        "competitive": "6 hours"
-    },
-    "competitive": {
-        "rank": "2073",
-        "rank_img": "https://blzgdapipro-a.akamaihd.net/game/rank-icons/rank-10.png"
-    },
-    "levelFrame": "https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x0250000000000928_Border.png",
-    "star": "https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x0250000000000928_Rank.png"
+   "username":"Calvin",
+   "level":813,
+   "portrait":"https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x0250000000000EF7.png",
+   "games":{
+      "quickplay":{
+         "won":647
+      },
+      "competitive":{
+         "won":59,
+         "lost":48,
+         "draw":1,
+         "played":108
+      }
+   },
+   "playtime":{
+      "quickplay":"129 hours",
+      "competitive":"23 hours"
+   },
+   "competitive":{
+      "rank":4420,
+      "rank_img":"https://d1u1mce87gyfbn.cloudfront.net/game/rank-icons/season-2/rank-7.png"
+   },
+   "levelFrame":"https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x025000000000096F_Border.png",
+   "star":"https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x025000000000096F_Rank.png"
 }
 ```
 

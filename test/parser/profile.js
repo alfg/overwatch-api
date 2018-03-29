@@ -3,7 +3,7 @@ import parseProfile from '../../app/parser/profile';
 
 const platform = 'pc'
 const region = 'us'
-const tag = 'Alf-1608'
+const tag = 'Calvin-1337'
 
 var result;
 

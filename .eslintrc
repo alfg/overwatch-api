@@ -1,0 +1,14 @@
+{
+    "extends": "eslint:recommended",
+    "globals": {
+        "require": true,
+        "module": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-unused-vars": ["error", { "args": "none", "ignoreRestSiblings": false }] 
+    }
+}

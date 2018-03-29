@@ -26,6 +26,7 @@
     "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
     "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes",
     "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv app/index.js",
+    "lint": "node node_modules/srv-cli/build/srv --lint",
     "test": "./node_modules/.bin/nyc ava -v"
   },
   "repository": {

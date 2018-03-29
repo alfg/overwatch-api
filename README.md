@@ -16,7 +16,7 @@ See: https://ow-api.herokuapp.com/docs/
 ## Demo
 
 ```
-curl http://ow-api.herokuapp.com/profile/pc/us/Alf-1608
+curl http://ow-api.herokuapp.com/profile/pc/us/Calvin-1337
 ```
 ```json
 {

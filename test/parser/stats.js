@@ -1,5 +1,5 @@
 import test from 'ava';
-import parser from '../../src/parser';
+import { getStats } from '../../src/parser';
 
 const platform = 'pc'
 const region = 'us'
@@ -8,7 +8,7 @@ const tag = 'Calvin-1337'
 var result;
 
 test.before.cb(t => {
-  parser.stats(platform, region, tag, (json) => {
+  getStats(platform, region, tag, (json) => {
     result = json;
     t.end();
   })

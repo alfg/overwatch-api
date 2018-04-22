@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-import parse from '../../src/parser/profile';
+import parser from '../../src/parser';
 import cache from '../cache';
 import utils from '../utils';
 
@@ -67,7 +67,7 @@ router.get('/:platform/:region/:tag', (req, res) => {
   });
 
   function getProfile(callback) {
-    parse(platform, region, tag, (data) => {
+    parser.profile(platform, region, tag, (data) => {
       callback(data);
     });
   }

@@ -1,5 +1,5 @@
 import test from 'ava';
-import utils from '../app/utils';
+import utils from '../server/utils';
 
 const data = {
     "username": "Calvin",

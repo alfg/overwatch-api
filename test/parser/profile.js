@@ -1,5 +1,5 @@
 import test from 'ava';
-import parseProfile from '../../app/parser/profile';
+import parser from '../../src/parser';
 
 const platform = 'pc'
 const region = 'us'
@@ -8,7 +8,7 @@ const tag = 'Calvin-1337'
 var result;
 
 test.before.cb(t => {
-  parseProfile(platform, region, tag, (json) => {
+  parser.profile(platform, region, tag, (json) => {
     result = json;
     t.end();
   })

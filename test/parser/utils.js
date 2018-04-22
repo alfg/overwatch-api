@@ -1,5 +1,5 @@
 import test from 'ava';
-import { getPrestigeLevel } from '../../app/parser/utils';
+import { getPrestigeLevel } from '../../src/parser/utils';
 
 
 test('get the prestige level 0', t => {

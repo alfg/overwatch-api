@@ -1,8 +1,8 @@
 {
-  "name": "overwatch-api",
-  "version": "0.2.6",
-  "description": "Overwatch API",
-  "main": "index.js",
+  "name": "overwatch-api-server",
+  "version": "0.3.1",
+  "description": "An Unoffical Overwatch HTTP API",
+  "main": "server/index.js",
   "engines": {
     "node": ">=6.11.1"
   },
@@ -17,17 +17,21 @@
   },
   "devDependencies": {
     "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
     "nyc": "^11.2.1"
   },
   "scripts": {
-    "start": "node node_modules/srv-cli/build/srv app/index.js",
-    "start-dev": "nodemon node_modules/srv-cli/build/srv app/index.js",
-    "docs": "node node_modules/srv-cli/build/srv app/index.js --docs app/routes",
-    "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv app/index.js",
+    "start": "node node_modules/srv-cli/build/srv server/index.js",
+    "start-dev": "nodemon node_modules/srv-cli/build/srv server/index.js",
+    "compile": "./node_modules/.bin/babel --presets es2015 -d lib/ api/",
+    "docs": "node node_modules/srv-cli/build/srv server/index.js --docs server/routes",
+    "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv server/index.js",
     "lint": "node node_modules/srv-cli/build/srv --lint",
-    "test": "./node_modules/.bin/nyc ava -v"
+    "test": "./node_modules/.bin/nyc ava test api/test -v"
   },
   "repository": {
     "type": "git",

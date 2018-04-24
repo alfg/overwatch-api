@@ -1,0 +1,50 @@
+{
+  "name": "overwatch-api",
+  "version": "0.3.1",
+  "description": "An Unoffical Overwatch API.",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=6.11.1"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "eslint": "^3.4.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "nyc": "^11.2.1"
+  },
+  "scripts": {
+    "compile": "./node_modules/.bin/babel --presets es2015 -d lib/ src/",
+    "lint": "node node_modules/srv-cli/build/srv --lint",
+    "test": "./node_modules/.bin/nyc ava -v",
+    "prepublishOnly": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfg/overwatch-api/api.git"
+  },
+  "keywords": [
+    "node",
+    "overwatch",
+    "api"
+  ],
+  "author": "Alf",
+  "license": "MIT",
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  }
+}

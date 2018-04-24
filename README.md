@@ -1,7 +1,7 @@
 # Overwatch API
 An unofficial [Overwatch](https://playoverwatch.com) HTTP API, built with NodeJS.
 
-![](overwatch.jpg)
+<p align=center><img src="overwatch.jpg"></img></p>
 
 [![npm](https://img.shields.io/npm/v/overwatch-api.svg)](https://www.npmjs.com/package/overwatch-api)
 [![Build Status](https://travis-ci.org/alfg/overwatch-api.svg?branch=master)](https://travis-ci.org/alfg/overwatch-api)

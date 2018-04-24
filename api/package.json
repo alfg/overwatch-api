@@ -1,13 +1,12 @@
 {
   "name": "overwatch-api",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An Unoffical Overwatch API.",
   "main": "lib/index.js",
   "engines": {
     "node": ">=6.11.1"
   },
   "dependencies": {
-    "babel-register": "^6.26.0",
     "cheerio": "^0.22.0",
     "eslint": "^3.4.0",
     "request": "^2.74.0",
@@ -26,7 +25,7 @@
     "compile": "./node_modules/.bin/babel --presets es2015 -d lib/ src/",
     "lint": "node node_modules/srv-cli/build/srv --lint",
     "test": "./node_modules/.bin/nyc ava -v",
-    "prepublish": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "repository": {
     "type": "git",

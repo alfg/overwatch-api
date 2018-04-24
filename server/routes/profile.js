@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-import parser from '../../api/src/parser';
+import { getProfile } from '../../api/src';
 import cache from '../cache';
 import utils from '../utils';
 
@@ -57,7 +57,7 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const cacheKey = `profile_${platform}_${region}_${tag}`;
   const timeout = 60 * 5; // 5 minutes.
 
-  cache.getOrSet(cacheKey, timeout, getProfile, function(data) {
+  cache.getOrSet(cacheKey, timeout, fnProfile, function(data) {
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {
@@ -66,8 +66,8 @@ router.get('/:platform/:region/:tag', (req, res) => {
     }
   });
 
-  function getProfile(callback) {
-    parser.profile(platform, region, tag, (data) => {
+  function fnProfile(callback) {
+    getProfile(platform, region, tag, (data) => {
       callback(data);
     });
   }

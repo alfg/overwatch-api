@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-import parser from '../../api/src/parser';
+import { getStats } from '../../api/src';
 import cache from '../cache';
 import utils from '../utils';
 
@@ -39,7 +39,7 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const cacheKey = `stats_${platform}_${region}_${tag}`;
   const timeout = 60 * 5; // 5 minutes.
 
-  cache.getOrSet(cacheKey, timeout, getStats, function(data) {
+  cache.getOrSet(cacheKey, timeout, fnStats, function(data) {
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {
@@ -48,8 +48,8 @@ router.get('/:platform/:region/:tag', (req, res) => {
     }
   });
 
-  function getStats(callback) {
-    parser.stats(platform, region, tag, (data) => {
+  function fnStats(callback) {
+    getStats(platform, region, tag, (data) => {
       callback(data);
     });
   }

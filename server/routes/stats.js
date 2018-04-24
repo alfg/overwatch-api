@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-import parser from '../../src/parser';
+import parser from '../../api/src/parser';
 import cache from '../cache';
 import utils from '../utils';
 

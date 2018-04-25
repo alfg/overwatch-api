@@ -8,6 +8,7 @@ before_install:
 - npm install -g npm@latest
 before_deploy:
   - cd api
+  - npm install -g babel-cli
   - npm install
 deploy:
   provider: npm

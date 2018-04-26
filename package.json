@@ -7,27 +7,19 @@
     "node": ">=6.11.1"
   },
   "dependencies": {
-    "babel-register": "^6.26.0",
     "cheerio": "^0.22.0",
-    "eslint": "^3.4.0",
     "node-cache": "^3.2.1",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
-    "srv-cli": "0.3.3"
+    "srv-cli": "0.3.6"
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
     "nyc": "^11.2.1"
   },
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv server/index.js",
     "start-dev": "nodemon node_modules/srv-cli/build/srv server/index.js",
-    "compile": "./node_modules/.bin/babel --presets es2015 -d lib/ api/",
     "docs": "node node_modules/srv-cli/build/srv server/index.js --docs server/routes",
     "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv server/index.js",
     "lint": "node node_modules/srv-cli/build/srv --lint",

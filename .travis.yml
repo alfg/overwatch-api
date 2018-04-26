@@ -8,7 +8,7 @@ before_install:
 - npm install -g npm@latest
 before_deploy:
   - cd api
-  - npm install
+  - npm install -g babel-cli babel-preset-env
 deploy:
   provider: npm
   email: alf.g.jr@gmail.com

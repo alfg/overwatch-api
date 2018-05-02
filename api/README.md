@@ -26,7 +26,7 @@ overwatch.getProfile(platform, region, tag, (json) => {
 });
 
 ```
-```json
+```javascript
 { username: 'Calvin',
   level: 861,
   portrait: 'https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x0250000000000EF7.png',

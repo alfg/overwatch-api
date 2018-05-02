@@ -1,5 +1,5 @@
 # Overwatch API
-An unofficial [Overwatch](https://playoverwatch.com) HTTP API, built with NodeJS.
+An unofficial [Overwatch](https://playoverwatch.com) HTTP API and NodeJS module.
 
 <p align=center><img src="overwatch.jpg"></img></p>
 
@@ -12,6 +12,9 @@ An unofficial [Overwatch](https://playoverwatch.com) HTTP API, built with NodeJS
 
 ## API Docs
 See: https://ow-api.herokuapp.com/docs/
+
+## NPM Module
+If you wish to use the Javascript API in your own project, see [api/README.md](api/README.md).
 
 ## Demo
 

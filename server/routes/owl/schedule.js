@@ -1,0 +1,43 @@
+const express = require('express');
+const router = express.Router();
+
+import { getSchedule } from '../../../api/src';
+import cache from '../../cache';
+
+
+/**
+ * @api {get} /owl/schedule Get scehdule.
+ * @apiName GetSchedule
+ * @apiGroup OWL 
+ *
+ * @apiSuccess {Object} data OWL schedule data.
+ *
+ * @apiExample {curl} Example usage:
+ *  curl -i http://ow-api.herokuapp.com/owl/schedule
+ *
+ * @apiSuccessExample {json} Success-Response:
+    HTTP/1.1 200 OK
+    {
+     data: {
+    }
+ */
+router.get('/', (req, res) => {
+  const cacheKey = `owl_schedule_`;
+  const timeout = 30; // 30 seconds.
+
+  cache.getOrSet(cacheKey, timeout, fnSchedule, function(data) {
+    if (data.statusCode) {
+      res.status(data.response.statusCode).send(data.response.statusMessage);
+    } else {
+      res.json(data);
+    }
+  });
+
+  function fnSchedule(callback) {
+    getSchedule((data) => {
+      callback(data);
+    });
+  }
+});
+
+export default router;

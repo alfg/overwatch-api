@@ -11,6 +11,18 @@ export default function(cb) {
   }
 
   rp(options).then((resp) => {
+
+    const json = {
+      data: transform(resp.data),
+    }
+
+    cb(json);
+  }).catch(err => {
+    cb(err);
+  });
+}
+
+function transform(data) {
     const includes = [
       'id',
       'divisionId',
@@ -22,7 +34,7 @@ export default function(cb) {
     ];
 
     // Filter only the properties we want to use.
-    const filtered = resp.data.map(o => {
+    const filtered = data.map(o => {
       return Object.keys(o)
         .filter(key => includes.includes(key))
         .reduce((obj, key) => {
@@ -30,13 +42,5 @@ export default function(cb) {
           return obj;
         }, {});
     });
-
-    const json = {
-      data: filtered,
-    }
-
-    cb(json);
-  }).catch(err => {
-    cb(err);
-  });
+    return filtered;
 }

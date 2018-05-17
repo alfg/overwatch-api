@@ -12,11 +12,45 @@ export default function(cb) {
 
   rp(options).then((resp) => {
     const json = {
-      data: resp.data,
+      data: transform(resp.data),
     }
 
     cb(json);
   }).catch(err => {
     cb(err);
   });
+}
+
+function transform(data) {
+  const t = {
+    liveMatch: {
+      competitors: data.liveMatch.competitors.map(o =>
+        ({
+          name: o.name,
+          primaryColor: o.primaryColor,
+          secondaryColor: o.secondaryColor,
+          abbreviatedName: o.abbreviatedName,
+          logo: o.logo,
+        })
+      ),
+      scores: data.liveMatch.scores,
+      status: data.liveMatch.status,
+      games: data.liveMatch.games.map(o => 
+        ({
+          number: o.number,
+          points: o.points,
+          state: o.state,
+          map: o.attributes.map
+        })
+      ),
+      startDate: data.liveMatch.startDate,
+      endDate: data.liveMatch.endDate,
+      wins: data.liveMatch.wins,
+      ties: data.liveMatch.ties,
+      losses: data.liveMatch.losses,
+      timeToMatch: data.liveMatch.timeToMatch,
+      liveStatus: data.liveMatch.liveStatus,
+    }
+  }
+  return t;
 }

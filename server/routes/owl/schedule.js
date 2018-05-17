@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-import { getSchedule } from '../../../api/src';
+import { getSchedule } from '../../../api/src/owl';
 import cache from '../../cache';
 
 
 /**
- * @api {get} /owl/schedule Get scehdule.
+ * @api {get} /owl/schedule Get schedule.
  * @apiName GetSchedule
  * @apiGroup OWL 
  *
@@ -18,7 +18,7 @@ import cache from '../../cache';
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK
     {
-     data: {
+      data: {}
     }
  */
 router.get('/', (req, res) => {

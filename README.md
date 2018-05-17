@@ -1,5 +1,5 @@
 # Overwatch API
-An unofficial [Overwatch](https://playoverwatch.com) HTTP API and NodeJS module.
+An unofficial [Overwatch](https://playoverwatch.com) and [Overwatch League](https://overwatchleague.com) HTTP API and NodeJS module.
 
 <p align=center><img src="overwatch.jpg"></img></p>
 
@@ -9,6 +9,10 @@ An unofficial [Overwatch](https://playoverwatch.com) HTTP API and NodeJS module.
 ## Features
 * Profile Data
 * Career Stats
+* Overwatch League Data
+  * Live Match
+  * Standings
+  * Schedule
 
 ## API Docs
 See: https://ow-api.herokuapp.com/docs/

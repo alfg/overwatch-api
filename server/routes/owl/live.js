@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-import { getLiveMatch } from '../../../api/src';
+import { getLiveMatch } from '../../../api/src/owl';
 import cache from '../../cache';
 
 
@@ -18,7 +18,7 @@ import cache from '../../cache';
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK
     {
-     data: {
+      data: {}
     }
  */
 router.get('/', (req, res) => {

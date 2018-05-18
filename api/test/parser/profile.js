@@ -24,7 +24,6 @@ test('get base information of user profile', t => {
 
 test('get information of games played by user', t => {
   t.deepEqual(typeof(result.games.quickplay.won), 'number');
-
   t.deepEqual(typeof(result.games.competitive.won), 'number');
   t.deepEqual(typeof(result.games.competitive.lost), 'number');
   t.deepEqual(typeof(result.games.competitive.draw), 'number');

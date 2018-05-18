@@ -5,3 +5,4 @@ docs/
 .DS_Store
 .nyc_output/
 .vscode/
+*package-lock.json

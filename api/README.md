@@ -7,6 +7,10 @@
 ## Features
 * Profile Data
 * Career Stats
+* Overwatch League Data
+  * Live Match
+  * Standings
+  * Schedule
 
 ## Install
 ```
@@ -46,6 +50,10 @@ overwatch.getProfile(platform, region, tag, (json) => {
 const overwatch = require('overwatch-api');
 ```
 
+---
+
+### Player Data
+
 ### overwatch.getProfile(platform, region, tag, callback)
 `platform` - Platform of user. `pc, xbl, psn`
 
@@ -62,6 +70,19 @@ const overwatch = require('overwatch-api');
 
 `tag` - BattleTag of user. Replace `#` with `-`.
 
+`callback(err, data)` - Callback function which returns the error and response data. 
+
+---
+
+### OWL Data
+
+### overwatch.owl.getLiveMatch(callback)
+`callback(err, data)` - Callback function which returns the error and response data. 
+
+### overwatch.owl.getStandings(callback)
+`callback(err, data)` - Callback function which returns the error and response data. 
+
+### overwatch.owl.getSchedule(callback)
 `callback(err, data)` - Callback function which returns the error and response data. 
 
 

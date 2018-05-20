@@ -22,7 +22,16 @@ export default function(cb) {
 }
 
 function transform(data) {
-  const t = {
+  let t;
+
+  if (Object.getOwnPropertyNames(data.liveMatch).length === 0) {
+    t = {
+      liveMatch: {},
+    }
+    return t;
+  }
+
+  t = {
     liveMatch: {
       competitors: data.liveMatch.competitors.map(o =>
         ({

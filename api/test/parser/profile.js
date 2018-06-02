@@ -28,6 +28,7 @@ test('get information of games played by user', t => {
   t.deepEqual(typeof(result.games.competitive.lost), 'number');
   t.deepEqual(typeof(result.games.competitive.draw), 'number');
   t.deepEqual(typeof(result.games.competitive.played), 'number');
+  t.deepEqual(typeof(result.games.competitive.win_rate), 'number');
 });
 
 test('get information of user playtime', t => {

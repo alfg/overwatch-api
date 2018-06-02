@@ -21,16 +21,26 @@ test('get base information of user profile', t => {
 });
 
 test('get user top heroes information', t => {
-  result['stats']['top_heroes']['quickplay'].map((hero) => {
-    t.deepEqual(typeof(hero['hero']), 'string');
-    t.deepEqual(typeof(hero['played']), 'string');
-    t.deepEqual(hero.img.startsWith('http'), true);
+  const topHeroCategories = {
+    'played': '0x0860000000000021',
+    'games_won': '0x0860000000000039',
+    'win_rate': '0x08600000000003D1',
+  };
+
+  Object.keys(topHeroCategories).forEach((k) => {
+    result['stats']['top_heroes']['quickplay'][k].map((hero) => {
+      t.deepEqual(typeof(hero['hero']), 'string');
+      t.deepEqual(typeof(hero[k]), 'string');
+      t.deepEqual(hero.img.startsWith('http'), true);
+    });
   });
 
-  result['stats']['top_heroes']['competitive'].map((hero) => {
-    t.deepEqual(typeof(hero['hero']), 'string');
-    t.deepEqual(typeof(hero['played']), 'string');
-    t.deepEqual(hero.img.startsWith('http'), true);
+  Object.keys(topHeroCategories).forEach((k) => {
+    result['stats']['top_heroes']['competitive'][k].map((hero) => {
+      t.deepEqual(typeof(hero['hero']), 'string');
+      t.deepEqual(typeof(hero[k]), 'string');
+      t.deepEqual(hero.img.startsWith('http'), true);
+    });
   });
 });
 

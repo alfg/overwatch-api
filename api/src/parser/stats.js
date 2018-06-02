@@ -31,34 +31,43 @@ export default function(platform, region, tag, cb) {
     //
     // Top Heroes.
     //
+    const topHeroCategories = {
+      'played': '0x0860000000000021',
+      'games_won': '0x0860000000000039',
+      'win_rate': '0x08600000000003D1',
+    };
 
     // Quickplay.
-    const quickplayTopHeroesEls = $('#quickplay [data-category-id="overwatch.guid.0x0860000000000021"]')
-      .find('.progress-category-item');
-    let quickplayTopHeroes = [];
-    quickplayTopHeroesEls.each(function(i, el) {
-      const stat = {};
-      stat.hero = $(this).find('.title').text();
-      stat.played = $(this).find('.description').text();
-      stat.img = $(this).find('img').attr('src');
-      quickplayTopHeroes.push(stat);
-    });
     stats['top_heroes'] = { quickplay: [] };
-    stats['top_heroes']['quickplay'] = quickplayTopHeroes;
+    Object.keys(topHeroCategories).forEach((k) => {
+      const topHeroesEls = $(`#competitive [data-category-id="overwatch.guid.${topHeroCategories[k]}"]`)
+        .find('.progress-category-item');
+      let topHeroes = [];
+      topHeroesEls.each(function(i, el) {
+        const stat = {};
+        stat.hero = $(this).find('.title').text();
+        stat.img = $(this).find('img').attr('src');
+        stat[k] = $(this).find('.description').text();
+        topHeroes.push(stat);
+      });
+      stats['top_heroes']['quickplay'][k] = topHeroes;
+    });
 
     // Competitive.
-    const compTopHeroesEls = $('#competitive [data-category-id="overwatch.guid.0x0860000000000021"]')
-      .find('.progress-category-item');
-    let compTopHeroes = [];
-    compTopHeroesEls.each(function(i, el) {
-      const stat = {};
-      stat.hero = $(this).find('.title').text();
-      stat.played = $(this).find('.description').text();
-      stat.img = $(this).find('img').attr('src');
-      compTopHeroes.push(stat);
+    stats['top_heroes']['competitive'] = {};
+    Object.keys(topHeroCategories).forEach((k) => {
+      const topHeroesEls = $(`#competitive [data-category-id="overwatch.guid.${topHeroCategories[k]}"]`)
+        .find('.progress-category-item');
+      let topHeroes = [];
+      topHeroesEls.each(function(i, el) {
+        const stat = {};
+        stat.hero = $(this).find('.title').text();
+        stat.img = $(this).find('img').attr('src');
+        stat[k] = $(this).find('.description').text();
+        topHeroes.push(stat);
+      });
+      stats['top_heroes']['competitive'][k] = topHeroes;
     });
-    stats['top_heroes']['competitive'] = [];
-    stats['top_heroes']['competitive'] = compTopHeroes;
 
     //
     // Career Stats

@@ -4,7 +4,7 @@
   "description": "An Unoffical Overwatch HTTP API",
   "main": "server/index.js",
   "engines": {
-    "node": ">=6.11.1"
+    "node": ">=6.11.1 <10.3.0"
   },
   "dependencies": {
     "cheerio": "^0.22.0",

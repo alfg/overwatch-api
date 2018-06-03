@@ -38,9 +38,9 @@ export default function(platform, region, tag, cb) {
     };
 
     // Quickplay.
-    stats['top_heroes'] = { quickplay: [] };
+    stats['top_heroes'] = { quickplay: {} };
     Object.keys(topHeroCategories).forEach((k) => {
-      const topHeroesEls = $(`#competitive [data-category-id="overwatch.guid.${topHeroCategories[k]}"]`)
+      const topHeroesEls = $(`#quickplay [data-category-id="overwatch.guid.${topHeroCategories[k]}"]`)
         .find('.progress-category-item');
       let topHeroes = [];
       topHeroesEls.each(function(i, el) {

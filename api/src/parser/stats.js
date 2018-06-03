@@ -32,15 +32,21 @@ export default function(platform, region, tag, cb) {
     // Top Heroes.
     //
     const topHeroCategories = {
-      'played': '0x0860000000000021',
-      'games_won': '0x0860000000000039',
-      'win_rate': '0x08600000000003D1',
+      quickplay: {
+        'played': '0x0860000000000021',
+        'games_won': '0x0860000000000039',
+      },
+      competitive: {
+        'played': '0x0860000000000021',
+        'games_won': '0x0860000000000039',
+        'win_rate': '0x08600000000003D1',
+      }
     };
 
     // Quickplay.
     stats['top_heroes'] = { quickplay: {} };
-    Object.keys(topHeroCategories).forEach((k) => {
-      const topHeroesEls = $(`#quickplay [data-category-id="overwatch.guid.${topHeroCategories[k]}"]`)
+    Object.keys(topHeroCategories.quickplay).forEach((k) => {
+      const topHeroesEls = $(`#quickplay [data-category-id="overwatch.guid.${topHeroCategories.quickplay[k]}"]`)
         .find('.progress-category-item');
       let topHeroes = [];
       topHeroesEls.each(function(i, el) {
@@ -55,8 +61,8 @@ export default function(platform, region, tag, cb) {
 
     // Competitive.
     stats['top_heroes']['competitive'] = {};
-    Object.keys(topHeroCategories).forEach((k) => {
-      const topHeroesEls = $(`#competitive [data-category-id="overwatch.guid.${topHeroCategories[k]}"]`)
+    Object.keys(topHeroCategories.competitive).forEach((k) => {
+      const topHeroesEls = $(`#competitive [data-category-id="overwatch.guid.${topHeroCategories.competitive[k]}"]`)
         .find('.progress-category-item');
       let topHeroes = [];
       topHeroesEls.each(function(i, el) {

@@ -21,13 +21,19 @@ test('get base information of user profile', t => {
 });
 
 test('get user top heroes information', t => {
-  const topHeroCategories = {
-    'played': '0x0860000000000021',
-    'games_won': '0x0860000000000039',
-    'win_rate': '0x08600000000003D1',
-  };
+    const topHeroCategories = {
+      quickplay: {
+        'played': '0x0860000000000021',
+        'games_won': '0x0860000000000039',
+      },
+      competitive: {
+        'played': '0x0860000000000021',
+        'games_won': '0x0860000000000039',
+        'win_rate': '0x08600000000003D1',
+      }
+    };
 
-  Object.keys(topHeroCategories).forEach((k) => {
+  Object.keys(topHeroCategories.quickplay).forEach((k) => {
     result['stats']['top_heroes']['quickplay'][k].map((hero) => {
       t.deepEqual(typeof(hero['hero']), 'string');
       t.deepEqual(typeof(hero[k]), 'string');
@@ -35,7 +41,7 @@ test('get user top heroes information', t => {
     });
   });
 
-  Object.keys(topHeroCategories).forEach((k) => {
+  Object.keys(topHeroCategories.competitive).forEach((k) => {
     result['stats']['top_heroes']['competitive'][k].map((hero) => {
       t.deepEqual(typeof(hero['hero']), 'string');
       t.deepEqual(typeof(hero[k]), 'string');

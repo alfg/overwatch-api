@@ -104,7 +104,8 @@ export default function(platform, region, tag, cb) {
           won: parseInt(won.competitive),
           lost: parseInt(lost.competitive),
           draw: parseInt(draw.competitive) || 0,
-          played: parseInt(played.competitive)
+          played: parseInt(played.competitive),
+          win_rate: parseFloat((parseInt(won.competitive) / (parseInt(played.competitive - parseInt(draw.competitive))) * 100).toFixed(2)),
         },
       },
       playtime: { quickplay: time.quickplay, competitive: time.competitive },

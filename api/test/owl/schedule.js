@@ -4,7 +4,9 @@ import { getSchedule } from '../../src/owl';
 var result;
 
 test.before.cb(t => {
-  getSchedule((json) => {
+  getSchedule((err, json) => {
+    if (err) t.fail();
+
     result = json;
     t.end();
   });

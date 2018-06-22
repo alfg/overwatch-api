@@ -34,7 +34,8 @@ router.get('/', (req, res) => {
   });
 
   function fnLive(callback) {
-    getLiveMatch((data) => {
+    getLiveMatch((err, data) => {
+      if (err) return callback(err);
       callback(data);
     });
   }

@@ -4,7 +4,9 @@ import { getLiveMatch } from '../../src/owl';
 var result;
 
 test.before.cb(t => {
-  getLiveMatch((json) => {
+  getLiveMatch((err, json) => {
+    if (err) t.fail();
+
     result = json;
     t.end();
   });

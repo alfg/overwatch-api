@@ -114,7 +114,7 @@ export default function(platform, region, tag, cb) {
       star: star
     }
 
-    cb(json);
+    cb(null, json);
   }).catch(err => {
     cb(err);
   });

@@ -125,7 +125,7 @@ export default function(platform, region, tag, cb) {
       stats: stats
     }
 
-    cb(json);
+    cb(null, json);
   }).catch(err => {
     cb(err);
   });

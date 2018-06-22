@@ -8,7 +8,9 @@ const tag = 'Calvin-1337'
 var result;
 
 test.before.cb(t => {
-  getStats(platform, region, tag, (json) => {
+  getStats(platform, region, tag, (err, json) => {
+    if (err) t.fail();
+
     result = json;
     t.end();
   })

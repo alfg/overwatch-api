@@ -34,7 +34,8 @@ router.get('/', (req, res) => {
   });
 
   function fnSchedule(callback) {
-    getSchedule((data) => {
+    getSchedule((err, data) => {
+      if (err) return callback(err);
       callback(data);
     });
   }

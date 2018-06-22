@@ -15,7 +15,7 @@ export default function(cb) {
       data: transform(resp.data),
     }
 
-    cb(json);
+    cb(null, json);
   }).catch(err => {
     cb(err);
   });

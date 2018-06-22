@@ -67,7 +67,8 @@ router.get('/:platform/:region/:tag', (req, res) => {
   });
 
   function fnProfile(callback) {
-    getProfile(platform, region, tag, (data) => {
+    getProfile(platform, region, tag, (err, data) => {
+      if (err) return callback(err);
       callback(data);
     });
   }

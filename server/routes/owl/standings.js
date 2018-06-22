@@ -34,7 +34,8 @@ router.get('/', (req, res) => {
   });
 
   function fnStandings(callback) {
-    getStandings((data) => {
+    getStandings((err, data) => {
+      if (err) return callback(err);
       callback(data);
     });
   }

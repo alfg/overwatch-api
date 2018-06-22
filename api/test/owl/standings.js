@@ -4,7 +4,9 @@ import { getStandings } from '../../src/owl';
 var result;
 
 test.before.cb(t => {
-  getStandings((json) => {
+  getStandings((err, json) => {
+    if (err) t.fail();
+
     result = json;
     t.end();
   });

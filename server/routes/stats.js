@@ -49,7 +49,8 @@ router.get('/:platform/:region/:tag', (req, res) => {
   });
 
   function fnStats(callback) {
-    getStats(platform, region, tag, (data) => {
+    getStats(platform, region, tag, (err, data) => {
+      if (err) return callback(err);
       callback(data);
     });
   }

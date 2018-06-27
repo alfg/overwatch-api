@@ -20,6 +20,7 @@ export default function(platform, region, tag, cb) {
     const user = $('.header-masthead').text();
     const level = $('.player-level div').first().text();
     const portrait = $('.player-portrait').attr('src');
+    const permission = $('.masthead-permission-level-text').text();
 
     // Get prestige level by matching .player-level background url hex.
     const prestigeEl = $('.player-level').first().attr('style');
@@ -122,6 +123,7 @@ export default function(platform, region, tag, cb) {
       username: user,
       level: parseInt(level) + prestigeLevel,
       portrait: portrait,
+      private: permission === 'Private Profile',
       stats: stats
     }
 

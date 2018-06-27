@@ -3,7 +3,7 @@ import { getProfile } from '../../src/parser';
 
 const platform = 'pc'
 const region = 'us'
-const tag = 'Calvin-1337'
+const tag = 'xQc-11273'
 
 var result;
 
@@ -34,8 +34,8 @@ test('get information of games played by user', t => {
 });
 
 test('get information of user playtime', t => {
-  t.deepEqual(typeof(result.playtime.quickplay), 'string');
-  t.deepEqual(typeof(result.playtime.competitive), 'string');
+  t.not(typeof(result.playtime.quickplay), 'undefined');
+  t.not(typeof(result.playtime.competitive), 'undefined');
 });
 
 test('get information of user competitive stats', t => {

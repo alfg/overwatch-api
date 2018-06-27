@@ -3,7 +3,7 @@ import { getStats } from '../../src/parser';
 
 const platform = 'pc'
 const region = 'us'
-const tag = 'Calvin-1337'
+const tag = 'xQc-11273'
 
 var result;
 

@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import rp from 'request-promise';
-import { getPrestigeLevel, createEndorsementSVG } from './utils';
+import { getPrestigeLevel } from './utils';
+import { createEndorsementSVG } from './svg';
 
 export default function(platform, region, tag, cb) {
 

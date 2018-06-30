@@ -1,5 +1,3 @@
-const svgBuilder = require('svg-builder');
-
 const prestigeLevels = {
     "0x0250000000000918": 0, // Bronze 0-5
     "0x0250000000000919": 0,
@@ -190,60 +188,4 @@ export function getPrestigeLevel(val) {
         }
     }
     return 0;
-}
-
-export function createEndorsementSVG(endorsementsObj) {
-    const sportsmanshipRate = endorsementsObj.sportsmanship.rate || 0;
-    const shotcallerRate = endorsementsObj.shotcaller.rate || 0;
-    const teammateRate = endorsementsObj.teammate.rate || 0;
-
-    const sportsmanshipDashArray = `${Math.round(sportsmanshipRate)} ${Math.round(100 - sportsmanshipRate)}`;
-    const shotcallerDashArray = `${Math.round(shotcallerRate)} ${Math.round(100 - shotcallerRate)}`;
-    const teammateDashArray = `${Math.round(teammateRate)} ${Math.round(100 - teammateRate)}`;
-
-    const svg = svgBuilder.newInstance()
-    svg.width(40).height(40);
-    svg.circle({
-        r: 15.915,
-        fill: '#2a2b2e',
-        'stroke-dasharray': `${shotcallerDashArray}`, 
-        'stroke-dashoffset': '25', // Start offset at 12 o'clock.
-        'stroke-width': '3',
-        stroke: '#f19512',
-        cx: '50%',
-        cy: '50%',
-    }).circle({
-        r: 15.915,
-        fill: 'transparent',
-        'stroke-dasharray': `${teammateDashArray}`,
-        'stroke-dashoffset': `${100 - Math.round(shotcallerRate) + 25}`, // Bump offset. 
-        'stroke-width': '3',
-        stroke: '#c81af5',
-        cx: '50%',
-        cy: '50%',
-    }).circle({
-        r: 15.915,
-        fill: 'transparent',
-        'stroke-dasharray': `${sportsmanshipDashArray}`,
-        'stroke-dashoffset': `${100 - Math.round(shotcallerRate + teammateRate) + 25}`,
-        'stroke-width': '3',
-        stroke: '#40ce44',
-        cx: '50%',
-        cy: '50%',
-    })
-    .text({
-        x: '50%',
-        y: '50%',
-        dy:'.3em',
-        'font-family': 'century gothic,arial,sans-serif',
-        'font-weight': 300,
-        'font-size': 16,
-        stroke: '#f6f6f6',
-        'stroke-width': '1',
-        fill: '#f6f6f6',
-        'text-anchor': 'middle',
-    }, `${endorsementsObj.level}`);
-
-    const b64 = new Buffer.from(svg.render()).toString('base64');
-    return `data:image/svg+xml;base64,${b64}`;
 }

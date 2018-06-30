@@ -2,7 +2,8 @@
     "extends": "eslint:recommended",
     "globals": {
         "require": true,
-        "module": true
+        "module": true,
+        "Buffer": true
     },
     "parserOptions": {
         "ecmaVersion": 6,

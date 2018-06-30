@@ -1,3 +1,4 @@
+const svgBuilder = require('svg-builder');
 
 const prestigeLevels = {
     "0x0250000000000918": 0, // Bronze 0-5
@@ -189,4 +190,64 @@ export function getPrestigeLevel(val) {
         }
     }
     return 0;
+}
+
+export function createEndorsementSVG(endorsmentsObj) {
+    // let svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" height="100px" width="100px">`;
+    // svg += `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" height="100px" width="100px"><circle cx="50%" cy="50%" r="15.915" fill="black"></circle></svg>`;
+    // svg += `<svg data-total="28" data-js="endorsement-border" data-value="2" class="EndorsementIcon-border EndorsementIcon-border--teammate" style="stroke-dasharray: 16.143, 100; transform: rotate(681.429deg);" viewBox="0 0 36 36"><circle cx="50%" cy="50%" r="15.915"></circle></svg>`;
+    // svg += `</svg>`;
+
+    console.log(endorsmentsObj);
+
+    const sportsmanshipRate = endorsmentsObj.sportsmanship.rate || 0;
+    const shotcallerRate = endorsmentsObj.shotcaller.rate || 0;
+    const teammateRate = endorsmentsObj.teammate.rate || 0;
+
+    const sportsmanshipDashArray =
+      `${Math.round(sportsmanshipRate)} ${Math.round(100 - sportsmanshipRate)}`;
+
+    const shotcallerDashArray =
+      `${Math.round(shotcallerRate)} ${Math.round(100 - shotcallerRate)}`;
+
+    const teammateDashArray =
+      `${Math.round(teammateRate)} ${Math.round(100 - teammateRate)}`;
+
+    console.log(sportsmanshipDashArray, shotcallerDashArray, teammateDashArray);
+
+    const svg = svgBuilder.newInstance()
+    svg.width(100).height(100);
+    svg.circle({
+        r: 15.915,
+        fill: 'transparent',
+        'stroke-dasharray': `${sportsmanshipDashArray}`, // 35 65
+        'stroke-dashoffset': '25', // 25
+        'stroke-width': '3',
+        stroke: '#40ce44',
+        cx: '50%',
+        cy: '50%',
+    }).circle({
+        r: 15.915,
+        fill: 'transparent',
+        'stroke-dasharray': `${shotcallerDashArray}`, // 11 89
+        'stroke-dashoffset': `${100 - Math.round(sportsmanshipRate) + 25}`, // 90
+        'stroke-width': '3',
+        stroke: '#f19512',
+        cx: '50%',
+        cy: '50%',
+    }).circle({
+        r: 15.915,
+        fill: 'transparent',
+        'stroke-dasharray': `${teammateDashArray}`, // 51 49
+        'stroke-dashoffset': `${100 - Math.round(sportsmanshipRate + shotcallerRate) + 25}`, // 79
+        'stroke-width': '3',
+        stroke: '#c81af5',
+        cx: '50%',
+        cy: '50%',
+    });
+    // svg.circle({ r: 0, fill: 'none', 'stroke-width': 1, stroke: ' #CB3728', cx: 42, cy: 82});
+
+    console.log('logo', svg.render());
+    const b64 = new Buffer.from(svg.render()).toString('base64');
+    return `data:image/svg+xml;base64,${b64}`;
 }

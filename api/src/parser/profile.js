@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
 import rp from 'request-promise';
-import { getPrestigeLevel } from './utils';
+import { getPrestigeLevel, createEndorsementSVG } from './utils';
 
 export default function(platform, region, tag, cb) {
 
@@ -26,6 +26,27 @@ export default function(platform, region, tag, cb) {
     const prestigeEl = $('.player-level').first().attr('style');
     const prestigeHex = prestigeEl.match(/0x0*[1-9a-fA-F][0-9a-fA-F]*/);
     const prestigeLevel = prestigeHex ? getPrestigeLevel(prestigeHex[0]) : 0;
+
+    // Endorsements.
+    const endorsementLevel = $('.masthead .endorsement-level div').last().text();
+    const sportsmanshipTotal = $('.masthead .EndorsementIcon-border--sportsmanship').data('total');
+    const sportsmanshipValue = $('.masthead .EndorsementIcon-border--sportsmanship').data('value');
+
+    const shotcallerTotal = $('.masthead .EndorsementIcon-border--shotcaller').data('total');
+    const shotcallerValue = $('.masthead .EndorsementIcon-border--shotcaller').data('value');
+
+    const teammateTotal = $('.masthead .EndorsementIcon-border--teammate').data('total');
+    const teammateValue = $('.masthead .EndorsementIcon-border--teammate').data('value');
+
+    const endorsement = {
+      sportsmanship: { value: sportsmanshipValue, rate: parseFloat((sportsmanshipValue / sportsmanshipTotal * 100).toFixed(2)) },
+      shotcaller: { value: shotcallerValue, rate: parseFloat((shotcallerValue / shotcallerTotal * 100).toFixed(2)) },
+      teammate: { value: teammateValue, rate: parseFloat((teammateValue / teammateTotal * 100).toFixed(2)) },
+      points: sportsmanshipTotal,
+      level: parseInt(endorsementLevel),
+    };
+
+    endorsement.icon = createEndorsementSVG(endorsement);
 
     const won = {};
     const lost = {};
@@ -96,6 +117,7 @@ export default function(platform, region, tag, cb) {
       username: user,
       level: parseInt(level) + prestigeLevel,
       portrait: portrait,
+      endorsement: endorsement,
       private: permission === 'Private Profile',
       games: {
         quickplay: {

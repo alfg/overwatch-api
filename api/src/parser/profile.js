@@ -30,6 +30,7 @@ export default function(platform, region, tag, cb) {
 
     // Endorsements.
     const endorsementLevel = $('.masthead .endorsement-level div').last().text();
+    const endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1);
     const sportsmanshipTotal = $('.masthead .EndorsementIcon-border--sportsmanship').data('total');
     const sportsmanshipValue = $('.masthead .EndorsementIcon-border--sportsmanship').data('value');
 
@@ -45,6 +46,7 @@ export default function(platform, region, tag, cb) {
       teammate: { value: teammateValue, rate: parseFloat((teammateValue / teammateTotal * 100).toFixed(2)) },
       points: sportsmanshipTotal,
       level: parseInt(endorsementLevel),
+      frame: endorsementFrame,
     };
 
     endorsement.icon = createEndorsementSVG(endorsement);

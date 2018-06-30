@@ -192,45 +192,22 @@ export function getPrestigeLevel(val) {
     return 0;
 }
 
-export function createEndorsementSVG(endorsmentsObj) {
-    // let svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" height="100px" width="100px">`;
-    // svg += `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" height="100px" width="100px"><circle cx="50%" cy="50%" r="15.915" fill="black"></circle></svg>`;
-    // svg += `<svg data-total="28" data-js="endorsement-border" data-value="2" class="EndorsementIcon-border EndorsementIcon-border--teammate" style="stroke-dasharray: 16.143, 100; transform: rotate(681.429deg);" viewBox="0 0 36 36"><circle cx="50%" cy="50%" r="15.915"></circle></svg>`;
-    // svg += `</svg>`;
+export function createEndorsementSVG(endorsementsObj) {
+    const sportsmanshipRate = endorsementsObj.sportsmanship.rate || 0;
+    const shotcallerRate = endorsementsObj.shotcaller.rate || 0;
+    const teammateRate = endorsementsObj.teammate.rate || 0;
 
-    console.log(endorsmentsObj);
-
-    const sportsmanshipRate = endorsmentsObj.sportsmanship.rate || 0;
-    const shotcallerRate = endorsmentsObj.shotcaller.rate || 0;
-    const teammateRate = endorsmentsObj.teammate.rate || 0;
-
-    const sportsmanshipDashArray =
-      `${Math.round(sportsmanshipRate)} ${Math.round(100 - sportsmanshipRate)}`;
-
-    const shotcallerDashArray =
-      `${Math.round(shotcallerRate)} ${Math.round(100 - shotcallerRate)}`;
-
-    const teammateDashArray =
-      `${Math.round(teammateRate)} ${Math.round(100 - teammateRate)}`;
-
-    console.log(sportsmanshipDashArray, shotcallerDashArray, teammateDashArray);
+    const sportsmanshipDashArray = `${Math.round(sportsmanshipRate)} ${Math.round(100 - sportsmanshipRate)}`;
+    const shotcallerDashArray = `${Math.round(shotcallerRate)} ${Math.round(100 - shotcallerRate)}`;
+    const teammateDashArray = `${Math.round(teammateRate)} ${Math.round(100 - teammateRate)}`;
 
     const svg = svgBuilder.newInstance()
-    svg.width(100).height(100);
+    svg.width(40).height(40);
     svg.circle({
         r: 15.915,
-        fill: 'transparent',
-        'stroke-dasharray': `${sportsmanshipDashArray}`, // 35 65
-        'stroke-dashoffset': '25', // 25
-        'stroke-width': '3',
-        stroke: '#40ce44',
-        cx: '50%',
-        cy: '50%',
-    }).circle({
-        r: 15.915,
-        fill: 'transparent',
-        'stroke-dasharray': `${shotcallerDashArray}`, // 11 89
-        'stroke-dashoffset': `${100 - Math.round(sportsmanshipRate) + 25}`, // 90
+        fill: '#2a2b2e',
+        'stroke-dasharray': `${shotcallerDashArray}`, 
+        'stroke-dashoffset': '25', // Start offset at 12 o'clock.
         'stroke-width': '3',
         stroke: '#f19512',
         cx: '50%',
@@ -238,16 +215,35 @@ export function createEndorsementSVG(endorsmentsObj) {
     }).circle({
         r: 15.915,
         fill: 'transparent',
-        'stroke-dasharray': `${teammateDashArray}`, // 51 49
-        'stroke-dashoffset': `${100 - Math.round(sportsmanshipRate + shotcallerRate) + 25}`, // 79
+        'stroke-dasharray': `${teammateDashArray}`,
+        'stroke-dashoffset': `${100 - Math.round(shotcallerRate) + 25}`, // Bump offset. 
         'stroke-width': '3',
         stroke: '#c81af5',
         cx: '50%',
         cy: '50%',
-    });
-    // svg.circle({ r: 0, fill: 'none', 'stroke-width': 1, stroke: ' #CB3728', cx: 42, cy: 82});
+    }).circle({
+        r: 15.915,
+        fill: 'transparent',
+        'stroke-dasharray': `${sportsmanshipDashArray}`,
+        'stroke-dashoffset': `${100 - Math.round(shotcallerRate + teammateRate) + 25}`,
+        'stroke-width': '3',
+        stroke: '#40ce44',
+        cx: '50%',
+        cy: '50%',
+    })
+    .text({
+        x: '50%',
+        y: '50%',
+        dy:'.3em',
+        'font-family': 'century gothic,arial,sans-serif',
+        'font-weight': 300,
+        'font-size': 16,
+        stroke: '#f6f6f6',
+        'stroke-width': '1',
+        fill: '#f6f6f6',
+        'text-anchor': 'middle',
+    }, `${endorsementsObj.level}`);
 
-    console.log('logo', svg.render());
     const b64 = new Buffer.from(svg.render()).toString('base64');
     return `data:image/svg+xml;base64,${b64}`;
 }

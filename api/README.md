@@ -25,8 +25,9 @@ const platform = 'pc';
 const region = 'us';
 const tag = 'Calvin-1337';
 
-overwatch.getProfile(platform, region, tag, (json) => {
-  console.log(json);
+overwatch.getProfile(platform, region, tag, (err, json) => {
+  if (err) console.error(err);
+  else console.log(json);
 });
 
 ```
@@ -61,7 +62,7 @@ const overwatch = require('overwatch-api');
 
 `tag` - BattleTag of user. Replace `#` with `-`.
 
-`callback(err, data)` - Callback function which returns the error and response data. 
+`callback(err, data)` - Callback function which returns the error and response data.
 
 ### overwatch.getStats(platform, region, tag, callback)
 `platform` - Platform of user. `pc, xbl, psn`
@@ -70,20 +71,20 @@ const overwatch = require('overwatch-api');
 
 `tag` - BattleTag of user. Replace `#` with `-`.
 
-`callback(err, data)` - Callback function which returns the error and response data. 
+`callback(err, data)` - Callback function which returns the error and response data.
 
 ---
 
 ### OWL Data
 
 ### overwatch.owl.getLiveMatch(callback)
-`callback(err, data)` - Callback function which returns the error and response data. 
+`callback(err, data)` - Callback function which returns the error and response data.
 
 ### overwatch.owl.getStandings(callback)
-`callback(err, data)` - Callback function which returns the error and response data. 
+`callback(err, data)` - Callback function which returns the error and response data.
 
 ### overwatch.owl.getSchedule(callback)
-`callback(err, data)` - Callback function which returns the error and response data. 
+`callback(err, data)` - Callback function which returns the error and response data.
 
 
 ## License

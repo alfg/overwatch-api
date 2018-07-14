@@ -31,20 +31,15 @@ export default function(platform, region, tag, cb) {
     // Endorsements.
     const endorsementLevel = $('.masthead .endorsement-level div').last().text();
     const endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1);
-    const sportsmanshipTotal = $('.masthead .EndorsementIcon-border--sportsmanship').data('total');
+
     const sportsmanshipValue = $('.masthead .EndorsementIcon-border--sportsmanship').data('value');
-
-    const shotcallerTotal = $('.masthead .EndorsementIcon-border--shotcaller').data('total');
     const shotcallerValue = $('.masthead .EndorsementIcon-border--shotcaller').data('value');
-
-    const teammateTotal = $('.masthead .EndorsementIcon-border--teammate').data('total');
     const teammateValue = $('.masthead .EndorsementIcon-border--teammate').data('value');
 
     const endorsement = {
-      sportsmanship: { value: sportsmanshipValue, rate: parseFloat((sportsmanshipValue / sportsmanshipTotal * 100).toFixed(2)) },
-      shotcaller: { value: shotcallerValue, rate: parseFloat((shotcallerValue / shotcallerTotal * 100).toFixed(2)) },
-      teammate: { value: teammateValue, rate: parseFloat((teammateValue / teammateTotal * 100).toFixed(2)) },
-      points: sportsmanshipTotal,
+      sportsmanship: { value: sportsmanshipValue, rate: parseFloat((sportsmanshipValue * 100).toFixed(2)) },
+      shotcaller: { value: shotcallerValue, rate: parseFloat((shotcallerValue * 100).toFixed(2)) },
+      teammate: { value: teammateValue, rate: parseFloat((teammateValue * 100).toFixed(2)) },
       level: parseInt(endorsementLevel),
       frame: endorsementFrame,
     };

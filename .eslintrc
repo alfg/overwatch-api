@@ -3,7 +3,8 @@
     "globals": {
         "require": true,
         "module": true,
-        "Buffer": true
+        "Buffer": true,
+        "exports": true
     },
     "parserOptions": {
         "ecmaVersion": 6,

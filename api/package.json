@@ -1,6 +1,6 @@
 {
   "name": "overwatch-api",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "An Unoffical Overwatch API.",
   "main": "lib/index.js",
   "engines": {
@@ -9,7 +9,8 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "request": "^2.74.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "svg-builder": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^0.22.0",

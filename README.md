@@ -7,12 +7,18 @@ An unofficial [Overwatch](https://playoverwatch.com) and [Overwatch League](http
 [![Build Status](https://travis-ci.org/alfg/overwatch-api.svg?branch=master)](https://travis-ci.org/alfg/overwatch-api)
 
 ## Features
-* Profile Data
-* Career Stats
+* Profile Data*
+* Career Stats*
 * Overwatch League Data
   * Live Match
   * Standings
   * Schedule
+
+**Please note, as of the JUNE 26, 2018 patch, Career Profiles will no longer be public by default (now defaults to Friends Only). An option to make Career Profiles visible has been added under Options > Social > Profile Visibility. 
+
+Your profile *MUST* be public to view most profile and career stats with this API.
+
+Source: https://playoverwatch.com/en-us/news/patch-notes/pc#patch-47946
 
 ## API Docs
 See: https://ow-api.herokuapp.com/docs/

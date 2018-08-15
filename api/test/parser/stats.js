@@ -27,11 +27,19 @@ test('get user top heroes information', t => {
       quickplay: {
         'played': '0x0860000000000021',
         'games_won': '0x0860000000000039',
+        'weapon_accuracy': '0x086000000000002F',
+        'eliminations_per_life': '0x08600000000003D2',
+        'multikill_best': '0x0860000000000346',
+        'objective_kills_average': '0x086000000000039C',
       },
       competitive: {
         'played': '0x0860000000000021',
         'games_won': '0x0860000000000039',
         'win_rate': '0x08600000000003D1',
+        'weapon_accuracy': '0x086000000000002F',
+        'eliminations_per_life': '0x08600000000003D2',
+        'multikill_best': '0x0860000000000346',
+        'objective_kills_average': '0x086000000000039C',
       }
     };
 

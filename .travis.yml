@@ -1,11 +1,12 @@
 language: node_js
 node_js:
-- 9
-- 8
-- 7
-- 6
+  - 10
+  - 9
+  - 8
+  - 7
+  - 6
 before_install:
-- npm install -g npm@latest
+  - npm install -g npm@latest
 before_deploy:
   - cd api
   - npm install -g babel-cli babel-preset-env

@@ -1,3 +1,5 @@
+import rp from 'request-promise';
+
 const prestigeLevels = {
     "0x0250000000000918": 0, // Bronze 0-5
     "0x0250000000000919": 0,
@@ -188,4 +190,18 @@ export function getPrestigeLevel(val) {
         }
     }
     return 0;
+}
+
+export function getPlatforms(id, callback) {
+  const url = `https://playoverwatch.com/en-us/career/platforms/${id}`;
+
+  const options = {
+    uri: encodeURI(url),
+    encoding: 'utf8',
+    json: true,
+  }
+
+  rp(options).then((json) => {
+    callback(json[0]);
+  });
 }

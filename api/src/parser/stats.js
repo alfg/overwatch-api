@@ -16,7 +16,7 @@ function getHTML(platform, region, tag, callback) {
     encoding: 'utf8'
   }
 
-  rp(options).then((htmlString) => {
+  return rp(options).then((htmlString) => {
     return callback(null, htmlString);
   }).catch(err => {
     return callback(err);
@@ -193,6 +193,9 @@ export default function(platform, region, tag, callback) {
     getPlatformsData: ['getHTML', async.apply(getPlatformsData)],
     transform: ['getHTML', 'parseHTML', 'getPlatformsData', async.apply(transform)],
   }, function(err, results) {
+    if (err) {
+      return callback(err);
+    }
     return callback(null, results.transform);
   });
 }

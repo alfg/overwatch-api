@@ -202,6 +202,6 @@ export function getPlatforms(id, callback) {
   }
 
   rp(options).then((json) => {
-    callback(json[0]);
+    callback(null, json[0]);
   });
 }

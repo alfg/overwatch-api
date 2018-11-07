@@ -70,7 +70,7 @@ function getPlatformsData(results, callback) {
     });
     const id = scriptEl.text().match(/([0-9])\w+/)[0];
 
-    getPlatforms(id, (json) => {
+    getPlatforms(id, (err, json) => {
       callback(null, json);
     });
 }
@@ -85,8 +85,8 @@ function transform(results, callback) {
     teammate: { value: parsed.teammateValue, rate: parseFloat((parsed.teammateValue * 100).toFixed(2)) },
     level: parseInt(parsed.endorsementLevel),
     frame: parsed.endorsementFrame,
-    icon: createEndorsementSVG(endorsement),
   };
+  endorsement.icon = createEndorsementSVG(endorsement);
 
   const won = {};
   const lost = {};

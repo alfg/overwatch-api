@@ -65,14 +65,14 @@ function parseHTML(results, callback) {
   // Quickplay.
   stats['top_heroes'] = { quickplay: {} };
   Object.keys(topHeroCategories.quickplay).forEach((k) => {
-    const topHeroesEls = $(`#quickplay [data-category-id="overwatch.guid.${topHeroCategories.quickplay[k]}"]`)
+    const topHeroesEls = $(`#quickplay [data-category-id="${topHeroCategories.quickplay[k]}"]`)
       .find('.progress-category-item');
     let topHeroes = [];
     topHeroesEls.each(function(i, el) {
       const stat = {};
-      stat.hero = $(this).find('.title').text();
-      stat.img = $(this).find('img').attr('src');
-      stat[k] = $(this).find('.description').text();
+      stat.hero = $(this).find('.ProgressBar-title').text();
+      stat.img = $(this).find('.ProgressBar-thumb').attr('src');
+      stat[k] = $(this).find('.ProgressBar-description').text();
       topHeroes.push(stat);
     });
     stats['top_heroes']['quickplay'][k] = topHeroes;
@@ -81,14 +81,14 @@ function parseHTML(results, callback) {
   // Competitive.
   stats['top_heroes']['competitive'] = {};
   Object.keys(topHeroCategories.competitive).forEach((k) => {
-    const topHeroesEls = $(`#competitive [data-category-id="overwatch.guid.${topHeroCategories.competitive[k]}"]`)
+    const topHeroesEls = $(`#competitive [data-category-id="${topHeroCategories.competitive[k]}"]`)
       .find('.progress-category-item');
     let topHeroes = [];
     topHeroesEls.each(function(i, el) {
       const stat = {};
-      stat.hero = $(this).find('.title').text();
-      stat.img = $(this).find('img').attr('src');
-      stat[k] = $(this).find('.description').text();
+      stat.hero = $(this).find('.ProgressBar-title').text();
+      stat.img = $(this).find('.ProgressBar-thumb').attr('src');
+      stat[k] = $(this).find('.ProgressBar-description').text();
       topHeroes.push(stat);
     });
     stats['top_heroes']['competitive'][k] = topHeroes;
@@ -149,7 +149,7 @@ function getPlatformsData(results, callback) {
     });
     const id = scriptEl.text().match(/([0-9])\w+/)[0];
 
-    getPlatforms(id, (json) => {
+    getPlatforms(id, (err, json) => {
       callback(null, json);
     });
 }
@@ -165,8 +165,8 @@ function transform(results, callback) {
     teammate: { value: parsed.teammateValue, rate: parseFloat((parsed.teammateValue * 100).toFixed(2)) },
     level: parseInt(parsed.endorsementLevel),
     frame: parsed.endorsementFrame,
-    icon: createEndorsementSVG(endorsement),
   };
+  endorsement.icon = createEndorsementSVG(endorsement);
 
   const json = {
     username: parsed.user,

@@ -27,6 +27,12 @@ function getHTML(platform, region, tag, callback) {
 function parseHTML(results, callback) {
   const $ = cheerio.load(results.getHTML);
 
+  // Check if profile exists.
+  const isFound = $('.content-box h1').text() !== 'Profile Not Found';
+  if (!isFound) {
+    return callback(new Error('Profile not found'));
+  }
+
   const parsed = {
     user: $('.header-masthead').text(),
     level: $('.player-level div').first().text(),
@@ -150,7 +156,7 @@ function getPlatformsData(results, callback) {
     const id = scriptEl.text().match(/([0-9])\w+/)[0];
 
     getPlatforms(id, (err, json) => {
-      callback(null, json);
+      return callback(null, json);
     });
 }
 

@@ -16,7 +16,7 @@ function getHTML(platform, region, tag, callback) {
     encoding: 'utf8'
   }
 
-  rp(options).then((htmlString) => {
+  return rp(options).then((htmlString) => {
     return callback(null, htmlString);
   }).catch(err => {
     return callback(err);
@@ -26,6 +26,12 @@ function getHTML(platform, region, tag, callback) {
 // Begin html parsing.
 function parseHTML(results, callback) {
   const $ = cheerio.load(results.getHTML);
+
+  // Check if profile exists.
+  const isFound = $('.content-box h1').text() !== 'Profile Not Found';
+  if (!isFound) {
+    return callback(new Error('Profile not found'));
+  }
 
   const parsed = {
     user: $('.header-masthead').text(),
@@ -58,7 +64,7 @@ function parseHTML(results, callback) {
   if (parsed.starEl !== null) {
     parsed.star = $('.player-level .player-rank').attr('style').slice(21, -1);
   }
-  callback(null, parsed);
+  return callback(null, parsed);
 }
 
 // Get prestige level by finding the user id and making an xhr request
@@ -71,7 +77,7 @@ function getPlatformsData(results, callback) {
     const id = scriptEl.text().match(/([0-9])\w+/)[0];
 
     getPlatforms(id, (err, json) => {
-      callback(null, json);
+      return callback(null, json);
     });
 }
 
@@ -150,7 +156,7 @@ function transform(results, callback) {
     levelFrame: parsed.levelFrame,
     star: parsed.star
   }
-  callback(null, json);
+  return callback(null, json);
 }
 
 export default function(platform, region, tag, callback) {
@@ -160,6 +166,9 @@ export default function(platform, region, tag, callback) {
     getPlatformsData: ['getHTML', async.apply(getPlatformsData)],
     transform: ['getHTML', 'parseHTML', 'getPlatformsData', async.apply(transform)],
   }, function(err, results) {
-    callback(null, results.transform);
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, results.transform);
   });
 }

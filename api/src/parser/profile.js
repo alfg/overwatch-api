@@ -85,9 +85,8 @@ function transform(results, callback) {
     teammate: { value: parsed.teammateValue, rate: parseFloat((parsed.teammateValue * 100).toFixed(2)) },
     level: parseInt(parsed.endorsementLevel),
     frame: parsed.endorsementFrame,
+    icon: createEndorsementSVG(endorsement),
   };
-
-  endorsement.icon = createEndorsementSVG(endorsement);
 
   const won = {};
   const lost = {};
@@ -155,7 +154,6 @@ function transform(results, callback) {
 }
 
 export default function(platform, region, tag, callback) {
-
   async.auto({
     getHTML: async.apply(getHTML, platform, region, tag),
     parseHTML: ['getHTML', async.apply(parseHTML)],

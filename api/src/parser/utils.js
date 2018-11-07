@@ -1,3 +1,5 @@
+import rp from 'request-promise';
+
 const prestigeLevels = {
     "0x0250000000000918": 0, // Bronze 0-5
     "0x0250000000000919": 0,
@@ -181,6 +183,8 @@ const prestigeLevels = {
     "0x02500000000009CD": 17
 }
 
+// No longer used as of 0.7.2.
+// We now get the prestige level via utils.getPlatforms.
 export function getPrestigeLevel(val) {
     for (var k in prestigeLevels) {
         if (k === val) {
@@ -188,4 +192,18 @@ export function getPrestigeLevel(val) {
         }
     }
     return 0;
+}
+
+export function getPlatforms(id, callback) {
+  const url = `https://playoverwatch.com/en-us/career/platforms/${id}`;
+
+  const options = {
+    uri: encodeURI(url),
+    encoding: 'utf8',
+    json: true,
+  }
+
+  rp(options).then((json) => {
+    callback(null, json[0]);
+  });
 }

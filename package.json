@@ -1,12 +1,13 @@
 {
   "name": "overwatch-api-server",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "An Unoffical Overwatch HTTP API",
   "main": "server/index.js",
   "engines": {
     "node": ">=6.11.1 <10.3.0"
   },
   "dependencies": {
+    "async": "^2.6.1",
     "cheerio": "^0.22.0",
     "node-cache": "^3.2.1",
     "request": "^2.74.0",

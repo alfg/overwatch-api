@@ -183,6 +183,8 @@ const prestigeLevels = {
     "0x02500000000009CD": 17
 }
 
+// No longer used as of 0.7.2.
+// We now get the prestige level via utils.getPlatforms.
 export function getPrestigeLevel(val) {
     for (var k in prestigeLevels) {
         if (k === val) {

@@ -21,7 +21,7 @@ Your profile *MUST* be public to view most profile and career stats with this AP
 Source: https://playoverwatch.com/en-us/news/patch-notes/pc#patch-47946
 
 ## API Docs
-See: https://ow-api.herokuapp.com/docs/
+See: https://overwatchy.com/docs/
 
 ## NPM Module
 If you wish to use the Javascript API in your own project, see [api/README.md](api/README.md).
@@ -29,7 +29,7 @@ If you wish to use the Javascript API in your own project, see [api/README.md](a
 ## Demo
 
 ```
-curl http://ow-api.herokuapp.com/profile/pc/us/Calvin-1337
+curl http://overwatchy.com/profile/pc/us/Calvin-1337
 ```
 ```json
 {

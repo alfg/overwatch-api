@@ -60,15 +60,6 @@ curl http://ow-api.herokuapp.com/profile/pc/us/Calvin-1337
 }
 ```
 
-Please note, the hosted Heroku app above is for development and testing purposes only and not to be used in production. We recommend deploying a copy of this project on your own server.
-
-A production-ready hosted service is TBD.
-
-Or deploy your own Heroku instance!
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/alfg/overwatch-api)
-
-
 ## Install
 
 #### Requirements
@@ -80,6 +71,10 @@ cd overwatch-api
 npm install
 npm start
 ```
+
+Or deploy your own Heroku instance!
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/alfg/overwatch-api)
 
 #### Development
 This project is built using [srv](https://github.com/alfg/srv), a microservices stack based on [express](https://expressjs.com/). After installation, run the project using the following:

@@ -1,6 +1,9 @@
-workflow "NPM Publish" {
+workflow "NPM Publish Server & Client" {
   on = "push"
-  resolves = ["Publish Server"]
+  resolves = [
+    "Publish Server",
+    "Publish API",
+  ]
 }
 
 action "Install" {
@@ -8,7 +11,7 @@ action "Install" {
   args = "install"
 }
 
-action "Test" {
+action "Test Server" {
   uses = "actions/npm@c555744"
   args = "test"
   needs = ["Install"]
@@ -16,7 +19,20 @@ action "Test" {
 
 action "Publish Server" {
   uses = "actions/npm@c555744"
-  needs = ["Test"]
   args = "publish --access public"
+  secrets = ["NPM_AUTH_TOKEN"]
+  needs = ["Test Server"]
+}
+
+action "Test API" {
+  uses = "actions/npm@c555744"
+  needs = ["Install"]
+  args = "test --prefix api"
+}
+
+action "Publish API" {
+  uses = "actions/npm@c555744"
+  needs = ["Test API"]
+  args = "publish api --access public"
   secrets = ["NPM_AUTH_TOKEN"]
 }

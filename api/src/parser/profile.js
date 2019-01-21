@@ -123,16 +123,19 @@ function transform(results, callback) {
   }
 
   // Calculate the prestige level.
-  const starsMatch = path.basename(parsed.star).split('.').slice(0, -1)[0];
-  const rankMatch = path.basename(parsed.rank).split('.').slice(0, -1)[0];
-  const stars = starsMatch ? getPrestigeStars(starsMatch) : 0;
-  const rank = rankMatch ? getPrestigeLevel(rankMatch) : 0;
-  const prestige = parseInt(stars) + parseInt(rank);
-  const level = parseInt(parsed.level) + (parseInt(prestige) * 100);
+  let level = parsed.level;
+  if (parsed.star && parsed.rank) {
+    const starsMatch = path.basename(parsed.star).split('.').slice(0, -1)[0];
+    const rankMatch = path.basename(parsed.rank).split('.').slice(0, -1)[0];
+    const stars = starsMatch ? getPrestigeStars(starsMatch) : 0;
+    const rank = rankMatch ? getPrestigeLevel(rankMatch) : 0;
+    const prestige = parseInt(stars) + parseInt(rank);
+    level = parseInt(parsed.level) + (parseInt(prestige) * 100);
+  }
 
   const json = {
     username: parsed.user,
-    level: level,
+    level: parseInt(level),
     portrait: parsed.portrait,
     endorsement: endorsement,
     private: parsed.permission === 'Private Profile',

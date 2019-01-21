@@ -1,7 +1,7 @@
 import path from 'path';
 import async from 'async';
 import cheerio from 'cheerio';
-import rp from 'request-promise';
+import request from 'request';
 import { getPrestigeLevel, getPrestigeStars } from './utils';
 import { createEndorsementSVG } from './svg';
 
@@ -17,10 +17,8 @@ function getHTML(platform, region, tag, callback) {
     encoding: 'utf8'
   }
 
-  return rp(options).then((htmlString) => {
-    return callback(null, htmlString);
-  }).catch(err => {
-    return callback(err);
+  return request(options, (err, res, body) => {
+    return callback(err, body);
   });
 }
 

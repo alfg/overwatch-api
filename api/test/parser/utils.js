@@ -21,15 +21,15 @@ test('get the prestige level 0', t => {
     t.deepEqual(level, 0);
 });
 
-test('get the prestige level 1700', t => {
-    const code = "0x02500000000009CD";
+test('get the prestige level 18', t => {
+    const code = "69fde7abebb0bb5aa870e62362e84984cae13e441aec931a5e2c9dc5d22a56dc";
     const level = getPrestigeLevel(code);
 
-    t.deepEqual(level, 1700);
+    t.deepEqual(level, 18);
 });
 
 test('get the prestige level default if not exists', t => {
-    const code = "0x02500000";
+    const code = "0xdeadc0de";
     const level = getPrestigeLevel(code);
 
     t.deepEqual(level, 0);

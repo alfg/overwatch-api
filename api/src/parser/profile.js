@@ -1,7 +1,8 @@
+import path from 'path';
 import async from 'async';
 import cheerio from 'cheerio';
 import rp from 'request-promise';
-import { getPlatforms } from './utils';
+import { getPrestigeLevel, getPrestigeStars } from './utils';
 import { createEndorsementSVG } from './svg';
 
 
@@ -53,7 +54,8 @@ function parseHTML(results, callback) {
     compTimePlayedEl: $('#competitive td:contains("Time Played")').next().html(),
     compRankEl: $('.competitive-rank'),
     levelFrame: $('.player-level').attr('style').slice(21, -1),
-    starEl: $('.player-level .player-rank').html(),
+    starEl: $('.player-rank').html(),
+    rankEl: $('.player-level').html(),
   }
 
   if (parsed.compRankEl !== null) {
@@ -64,26 +66,16 @@ function parseHTML(results, callback) {
   if (parsed.starEl !== null) {
     parsed.star = $('.player-level .player-rank').attr('style').slice(21, -1);
   }
+
+  if (parsed.rankEl !== null) {
+    parsed.rank = $('.player-level').attr('style').slice(21, -1);
+  }
   return callback(null, parsed);
-}
-
-// Get prestige level by finding the user id and making an xhr request
-// to get the level.
-function getPlatformsData(results, callback) {
-    const $ = cheerio.load(results.getHTML);
-    const scriptEl = $('script').filter(function() {
-      return $(this).text().trim().includes('window.app.career.init');
-    });
-    const id = scriptEl.text().match(/([0-9])\w+/)[0];
-
-    getPlatforms(id, (err, json) => {
-      return callback(null, json);
-    });
 }
 
 // Transform the data into a json object we can serve.
 function transform(results, callback) {
-  const { parseHTML: parsed, getPlatformsData: platform } = results;
+  const { parseHTML: parsed } = results;
 
   const endorsement = {
     sportsmanship: { value: parsed.sportsmanshipValue, rate: parseFloat((parsed.sportsmanshipValue * 100).toFixed(2)) },
@@ -132,9 +124,17 @@ function transform(results, callback) {
     time.competitive = parsed.compTimePlayedEl.trim().replace(/,/g, '');
   }
 
+  // Calculate the prestige level.
+  const starsMatch = path.basename(parsed.star).split('.').slice(0, -1)[0];
+  const rankMatch = path.basename(parsed.rank).split('.').slice(0, -1)[0];
+  const stars = starsMatch ? getPrestigeStars(starsMatch) : 0;
+  const rank = rankMatch ? getPrestigeLevel(rankMatch) : 0;
+  const prestige = parseInt(stars) + parseInt(rank);
+  const level = parseInt(parsed.level) + (parseInt(prestige) * 100);
+
   const json = {
     username: parsed.user,
-    level: platform.playerLevel,
+    level: level,
     portrait: parsed.portrait,
     endorsement: endorsement,
     private: parsed.permission === 'Private Profile',
@@ -163,8 +163,7 @@ export default function(platform, region, tag, callback) {
   async.auto({
     getHTML: async.apply(getHTML, platform, region, tag),
     parseHTML: ['getHTML', async.apply(parseHTML)],
-    getPlatformsData: ['getHTML', async.apply(getPlatformsData)],
-    transform: ['getHTML', 'parseHTML', 'getPlatformsData', async.apply(transform)],
+    transform: ['getHTML', 'parseHTML', async.apply(transform)],
   }, function(err, results) {
     if (err) {
       return callback(err);

@@ -38,7 +38,7 @@ function parseHTML(results, callback) {
     portrait: $('.player-portrait').attr('src'),
     permission: $('.masthead-permission-level-text').text(),
     endorsementLevel: $('.masthead .endorsement-level div').last().text(),
-    endorsementFrame: $('.masthead .EndorsementIcon').attr('style').slice(21, -1),
+    endorsementFrameEl: $('.masthead .EndorsementIcon').attr('style'),
     sportsmanshipValue: $('.masthead .EndorsementIcon-border--sportsmanship').data('value'),
     shotcallerValue: $('.masthead .EndorsementIcon-border--shotcaller').data('value'),
     teammateValue: $('.masthead .EndorsementIcon-border--teammate').data('value'),
@@ -54,6 +54,10 @@ function parseHTML(results, callback) {
     levelFrame: $('.player-level').attr('style').slice(21, -1),
     starEl: $('.player-rank').html(),
     rankEl: $('.player-level').html(),
+  }
+
+  if (parsed.endorsementFrameEl) {
+    parsed.endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1)
   }
 
   if (parsed.compRankEl !== null) {
@@ -80,7 +84,7 @@ function transform(results, callback) {
     shotcaller: { value: parsed.shotcallerValue, rate: parseFloat((parsed.shotcallerValue * 100).toFixed(2)) },
     teammate: { value: parsed.teammateValue, rate: parseFloat((parsed.teammateValue * 100).toFixed(2)) },
     level: parseInt(parsed.endorsementLevel),
-    frame: parsed.endorsementFrame,
+    frame: parsed.endorsementFrame || null,
   };
   endorsement.icon = createEndorsementSVG(endorsement);
 

@@ -38,12 +38,16 @@ function parseHTML(results, callback) {
     portrait: $('.player-portrait').attr('src'),
     permission: $('.masthead-permission-level-text').text(),
     endorsementLevel: $('.masthead .endorsement-level div').last().text(),
-    endorsementFrame: $('.masthead .EndorsementIcon').attr('style').slice(21, -1),
+    endorsementFrameEl: $('.masthead .EndorsementIcon').attr('style'),
     sportsmanshipValue: $('.masthead .EndorsementIcon-border--sportsmanship').data('value'),
     shotcallerValue: $('.masthead .EndorsementIcon-border--shotcaller').data('value'),
     teammateValue: $('.masthead .EndorsementIcon-border--teammate').data('value'),
     starEl: $('.player-rank').html(),
     rankEl: $('.player-level').html(),
+  }
+
+  if (parsed.endorsementFrameEl) {
+    parsed.endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1)
   }
 
   if (parsed.starEl !== null) {

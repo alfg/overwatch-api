@@ -51,9 +51,13 @@ function parseHTML(results, callback) {
     compDrawEl: $('#competitive td:contains("Games Tied")').next().html(),
     compTimePlayedEl: $('#competitive td:contains("Time Played")').next().html(),
     compRankEl: $('.competitive-rank'),
-    levelFrame: $('.player-level').attr('style').slice(21, -1),
+    levelFrameEl: $('.player-level'),
     starEl: $('.player-rank').html(),
     rankEl: $('.player-level').html(),
+  }
+
+  if (parsed.levelFrameEl) {
+    parsed.levelFrame = $('.player-level').attr('style').slice(21, -1);
   }
 
   if (parsed.endorsementFrameEl) {

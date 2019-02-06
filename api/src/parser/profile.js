@@ -51,17 +51,9 @@ function parseHTML(results, callback) {
     compDrawEl: $('#competitive td:contains("Games Tied")').next().html(),
     compTimePlayedEl: $('#competitive td:contains("Time Played")').next().html(),
     compRankEl: $('.competitive-rank'),
-    levelFrameEl: $('.player-level'),
-    starEl: $('.player-rank').html(),
-    rankEl: $('.player-level').html(),
-  }
-
-  if (parsed.levelFrameEl) {
-    parsed.levelFrame = $('.player-level').attr('style').slice(21, -1);
-  }
-
-  if (parsed.endorsementFrameEl) {
-    parsed.endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1)
+    levelFrameEl: $('.player-level').attr('style'),
+    starEl: $('.player-rank').attr('style'),
+    rankEl: $('.player-level').attr('style'),
   }
 
   if (parsed.compRankEl !== null) {
@@ -69,12 +61,20 @@ function parseHTML(results, callback) {
     parsed.compRank = $('.competitive-rank div').html();
   }
 
-  if (parsed.starEl !== null) {
-    parsed.star = $('.player-level .player-rank').attr('style').slice(21, -1);
+  if (parsed.levelFrameEl) {
+    parsed.levelFrame = parsed.levelFrameEl.slice(21, -1);
   }
 
-  if (parsed.rankEl !== null) {
-    parsed.rank = $('.player-level').attr('style').slice(21, -1);
+  if (parsed.endorsementFrameEl) {
+    parsed.endorsementFrame = parsed.endorsementFrameEl.slice(21, -1)
+  }
+
+  if (parsed.starEl) {
+    parsed.star = parsed.starEl.slice(21, -1);
+  }
+
+  if (parsed.rankEl) {
+    parsed.rank = parsed.rankEl.slice(21, -1);
   }
   return callback(null, parsed);
 }

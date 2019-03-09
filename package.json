@@ -1,6 +1,6 @@
 {
   "name": "overwatch-api-server",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "An Unoffical Overwatch HTTP API",
   "main": "server/index.js",
   "engines": {

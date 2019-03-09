@@ -1,9 +1,9 @@
 workflow "NPM Publish Server & Client" {
-  on = "push"
   resolves = [
     "Publish Server",
     "Publish API",
   ]
+  on = "release"
 }
 
 action "Install" {

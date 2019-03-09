@@ -62,19 +62,19 @@ function parseHTML(results, callback) {
   }
 
   if (parsed.levelFrameEl) {
-    parsed.levelFrame = parsed.levelFrameEl.slice(21, -1);
+    parsed.levelFrame = parsed.levelFrameEl.slice(21, -1).replace(/ /g, '');
   }
 
   if (parsed.endorsementFrameEl) {
-    parsed.endorsementFrame = parsed.endorsementFrameEl.slice(21, -1)
+    parsed.endorsementFrame = parsed.endorsementFrameEl.slice(21, -1).replace(/ /g, '');
   }
 
   if (parsed.starEl) {
-    parsed.star = parsed.starEl.slice(21, -1);
+    parsed.star = parsed.starEl.slice(21, -1).replace(/ /g, '');
   }
 
   if (parsed.rankEl) {
-    parsed.rank = parsed.rankEl.slice(21, -1);
+    parsed.rank = parsed.rankEl.slice(21, -1).replace(/ /g, '');
   }
   return callback(null, parsed);
 }

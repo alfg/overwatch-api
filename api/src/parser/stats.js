@@ -47,15 +47,15 @@ function parseHTML(results, callback) {
   }
 
   if (parsed.endorsementFrameEl) {
-    parsed.endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1)
+    parsed.endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1).replace(/ /g, '');
   }
 
   if (parsed.starEl !== null) {
-    parsed.star = $('.player-level .player-rank').attr('style').slice(21, -1);
+    parsed.star = $('.player-level .player-rank').attr('style').slice(21, -1).replace(/ /g, '');
   }
 
   if (parsed.rankEl !== null) {
-    parsed.rank = $('.player-level').attr('style').slice(21, -1);
+    parsed.rank = $('.player-level').attr('style').slice(21, -1).replace(/ /g, '');
   }
 
   const stats = {};

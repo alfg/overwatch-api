@@ -60,7 +60,6 @@ function parseHTML(results, callback) {
     parsed.compRankImgTank = $('.competitive-rank div[data-ow-tooltip-text="Tank Skill Rating"] img').attr('src') || null;
     parsed.compRankImgDamage = $('.competitive-rank div[data-ow-tooltip-text="Damage Skill Rating"] img').attr('src') || null;
     parsed.compRankImgSupport = $('.competitive-rank div[data-ow-tooltip-text="Support Skill Rating"] img').attr('src') || null;
-    parsed.compRank = $('.competitive-rank').next().html();
     parsed.compRankElTank = $('.competitive-rank div[data-ow-tooltip-text="Tank Skill Rating"]').next().html();
     parsed.compRankElDamage = $('.competitive-rank div[data-ow-tooltip-text="Damage Skill Rating"]').next().html();
     parsed.compRankElSupport = $('.competitive-rank div[data-ow-tooltip-text="Support Skill Rating"]').next().html();

@@ -39,6 +39,10 @@ test('get information of user playtime', t => {
 });
 
 test('get information of user competitive stats', t => {
-  t.deepEqual(typeof(result.competitive.rank), 'number');
-  t.deepEqual(result.competitive.rank_img.startsWith('http'), true);
+  t.deepEqual(typeof(result.competitive.tank.rank), 'number');
+  t.deepEqual(result.competitive.tank.rank_img.startsWith('http'), true);
+  t.deepEqual(typeof(result.competitive.damage.rank), 'number');
+  t.deepEqual(result.competitive.damage.rank_img.startsWith('http'), true);
+  t.deepEqual(typeof(result.competitive.support.rank), 'number');
+  t.deepEqual(result.competitive.support.rank_img.startsWith('http'), true);
 });

@@ -57,8 +57,12 @@ function parseHTML(results, callback) {
   }
 
   if (parsed.compRankEl !== null) {
-    parsed.compRankImg = $('.competitive-rank img').attr('src') || null;
-    parsed.compRank = $('.competitive-rank div').html();
+    parsed.compRankImgTank = $('.competitive-rank div[data-ow-tooltip-text="Tank Skill Rating"] img').attr('src') || null;
+    parsed.compRankImgDamage = $('.competitive-rank div[data-ow-tooltip-text="Damage Skill Rating"] img').attr('src') || null;
+    parsed.compRankImgSupport = $('.competitive-rank div[data-ow-tooltip-text="Support Skill Rating"] img').attr('src') || null;
+    parsed.compRankElTank = $('.competitive-rank div[data-ow-tooltip-text="Tank Skill Rating"]').next().html();
+    parsed.compRankElDamage = $('.competitive-rank div[data-ow-tooltip-text="Damage Skill Rating"]').next().html();
+    parsed.compRankElSupport = $('.competitive-rank div[data-ow-tooltip-text="Support Skill Rating"]').next().html();
   }
 
   if (parsed.levelFrameEl) {
@@ -161,10 +165,24 @@ function transform(results, callback) {
       },
     },
     playtime: { quickplay: time.quickplay, competitive: time.competitive },
-    competitive: { rank: parseInt(parsed.compRank), rank_img: parsed.compRankImg },
+    competitive: { 
+      tank: {
+        rank: parseInt(parsed.compRankElTank), 
+        rank_img: parsed.compRankImgTank 
+      },
+      damage: {
+        rank: parseInt(parsed.compRankElDamage), 
+        rank_img: parsed.compRankImgDamage
+      },
+      support: {
+        rank: parseInt(parsed.compRankElSupport), 
+        rank_img: parsed.compRankImgSupport
+      }
+    },
     levelFrame: parsed.levelFrame,
     star: parsed.star
   }
+
   return callback(null, json);
 }
 

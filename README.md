@@ -52,8 +52,19 @@ curl http://overwatchy.com/profile/pc/us/Calvin-1337
       "competitive":"23 hours"
    },
    "competitive":{
-      "rank":4420,
-      "rank_img":"https://d1u1mce87gyfbn.cloudfront.net/game/rank-icons/season-2/rank-7.png"
+      "tank": {
+         "rank":4115,
+         "rank_img":"https://d1u1mce87gyfbn.cloudfront.net/game/rank-icons/season-2/rank-7.png"
+      },
+      "damage": {
+         "rank":4257,
+         "rank_img":"https://d1u1mce87gyfbn.cloudfront.net/game/rank-icons/season-2/rank-7.png"
+      },
+      "support": {
+         "rank":4475,
+         "rank_img":"https://d1u1mce87gyfbn.cloudfront.net/game/rank-icons/season-2/rank-7.png"
+      }
+      
    },
    "levelFrame":"https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x025000000000096F_Border.png",
    "star":"https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x025000000000096F_Rank.png"

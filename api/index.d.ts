@@ -53,8 +53,18 @@ declare namespace OverwatchAPI {
             competitive: string
         },
         competitive: {
-            rank: number,
-            rank_img: string
+            tank: {
+                rank: number,
+                rank_img: string
+            },
+            damage: {
+                rank: number,
+                rank_img: string
+            },
+            support: {
+                rank: number,
+                rank_img: string
+            }
         },
         levelFrame: string,
         star: string

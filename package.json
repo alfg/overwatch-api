@@ -16,11 +16,11 @@
     "svg-builder": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "nyc": "^11.2.1",
+    "ava": "^2.4.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "nyc": "^14.1.1"
   },
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv server/index.js",
@@ -28,7 +28,9 @@
     "docs": "node node_modules/srv-cli/build/srv server/index.js --docs server/routes",
     "debug": "node --nolazy --debug-brk=5858 node_modules/srv-cli/build/srv server/index.js",
     "lint": "node node_modules/srv-cli/build/srv --lint",
-    "test": "./node_modules/.bin/nyc ava test api/test -v"
+    "test-api": "cd api && nyc ava -v",
+    "test-server": "nyc ava -v",
+    "test": "npm run test-server && npm run test-api"
   },
   "repository": {
     "type": "git",
@@ -51,11 +53,19 @@
   "homepage": "https://github.com/alfg/overwatch-api",
   "ava": {
     "files": [
-      "test/**/*.js"
+      "test/**/*"
     ],
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": {
+      "extensions": [
+        "js",
+        "jsx"
+      ],
+      "testOptions": {
+        "babelrc": false
+      }
+    }
   }
 }

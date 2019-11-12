@@ -8,18 +8,18 @@
     "node": ">=6.11.1"
   },
   "dependencies": {
-    "async": "^2.6.1",
     "cheerio": "^0.22.0",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
     "svg-builder": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "async": "^3.1.0",
+    "ava": "^2.4.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
-    "nyc": "^11.2.1"
+    "nyc": "^14.1.1"
   },
   "scripts": {
     "compile": "babel -d lib/ src/",
@@ -39,11 +39,16 @@
   "license": "MIT",
   "ava": {
     "files": [
-      "test/**/*.js"
+      "test/**/*"
     ],
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": {
+      "extensions": ["js", "jsx"],
+      "testOptions": {
+        "babelrc": false
+      }
+    }
   }
 }

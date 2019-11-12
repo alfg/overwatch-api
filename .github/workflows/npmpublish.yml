@@ -33,14 +33,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - working-directory: api
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+      - run: |
+          cd api
+          npm ci
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 

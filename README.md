@@ -74,7 +74,7 @@ curl http://overwatchy.com/profile/pc/us/Calvin-1337
 ## Install
 
 #### Requirements
-* Node v6.0+
+* Node v8.0+
 
 ```bash
 git clone https://github.com/alfg/overwatch-api.git

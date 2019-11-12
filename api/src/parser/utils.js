@@ -1,5 +1,3 @@
-import rp from 'request-promise';
-
 // Credit to @relaera on https://github.com/Fuyukai/OWAPI/pull/270 for this data.
 const prestigeLevels = {
   "1055f5ae3a84b7bd8afa9fcbd2baaf9a412c63e8fe5411025b3264db12927771": 0,  // Bronze Lv 1

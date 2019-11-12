@@ -101,19 +101,3 @@ export function getPrestigeStars(val) {
     }
     return 0;
 }
-
-// No longer used.
-// We now use utils.getPrestigeLevel and utils.getPrestigeStars.
-export function getPlatforms(id, callback) {
-  const url = `https://playoverwatch.com/en-us/career/platforms/${id}`;
-
-  const options = {
-    uri: encodeURI(url),
-    encoding: 'utf8',
-    json: true,
-  }
-
-  rp(options).then((json) => {
-    callback(null, json[0]);
-  });
-}

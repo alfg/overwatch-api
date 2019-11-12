@@ -1,5 +1,3 @@
-import rp from 'request-promise';
-
 // Credit to @relaera on https://github.com/Fuyukai/OWAPI/pull/270 for this data.
 const prestigeLevels = {
   "1055f5ae3a84b7bd8afa9fcbd2baaf9a412c63e8fe5411025b3264db12927771": 0,  // Bronze Lv 1
@@ -100,20 +98,4 @@ export function getPrestigeStars(val) {
         }
     }
     return 0;
-}
-
-// No longer used.
-// We now use utils.getPrestigeLevel and utils.getPrestigeStars.
-export function getPlatforms(id, callback) {
-  const url = `https://playoverwatch.com/en-us/career/platforms/${id}`;
-
-  const options = {
-    uri: encodeURI(url),
-    encoding: 'utf8',
-    json: true,
-  }
-
-  rp(options).then((json) => {
-    callback(null, json[0]);
-  });
 }

@@ -1,5 +1,5 @@
 import test from 'ava';
-import { getPrestigeLevel } from '../../src/parser/utils';
+import { getPrestigeLevel, getPrestigeStars } from '../../src/parser/utils';
 
 test('get the prestige level 0', t => {
     const code = "0x0250000000000918";
@@ -34,4 +34,14 @@ test('get the prestige level default if given a bad value', t => {
     const level = getPrestigeLevel(code);
 
     t.deepEqual(level, 0);
+});
+
+test('returns 0 stars by default', t => {
+    const stars = getPrestigeStars('');
+    t.is(stars, 0);
+});
+
+test('returns stars for uuid', t => {
+    const stars = getPrestigeStars('cff520765f143c521b25ad19e560abde9a90eeae79890b14146a60753d7baff8');
+    t.is(stars, 4);
 });

@@ -83,19 +83,15 @@ const prestigeStars = {
 }
 
 export function getPrestigeLevel(val) {
-    for (var k in prestigeLevels) {
-        if (k === val) {
-            return prestigeLevels[k];
-        }
+    if (prestigeLevels[val]) {
+        return prestigeLevels[val];
     }
     return 0;
 }
 
 export function getPrestigeStars(val) {
-    for (var k in prestigeStars) {
-        if (k === val) {
-            return prestigeStars[k];
-        }
+    if (prestigeStars[val]) {
+        return prestigeStars[val];
     }
     return 0;
 }

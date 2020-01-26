@@ -10,7 +10,7 @@ import utils from '../utils';
  * @apiName GetProfile
  * @apiGroup Profile
  *
- * @apiParam {String} platform Platform of user. pc/xbl/psn
+ * @apiParam {String} platform Platform of user. pc/xbl/psn/nintendo-switch
  * @apiParam {String} region Region of player. us/eu/kr/cn/global
  * @apiParam {String} tag BattleTag of user. Replace # with -.
  * @apiParam (Query String Params) {String} include Query String parameter to specifiy include filters. Comma deliminated. 

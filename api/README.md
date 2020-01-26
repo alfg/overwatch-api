@@ -21,7 +21,7 @@ npm install --save overwatch-api
 ```javascript
 const overwatch = require('overwatch-api');
 
-const platform = 'pc';
+const platform = 'pc'; // pc/xbl/psn/nintendo-switch
 const region = 'us';
 const tag = 'Calvin-1337';
 

@@ -38,7 +38,7 @@ test('get information of user playtime', t => {
   t.not(typeof(result.playtime.competitive), 'undefined');
 });
 
-test('get information of user competitive stats', t => {
+test.skip('get information of user competitive stats', t => {
   t.deepEqual(typeof(result.competitive.tank.rank), 'number');
   t.deepEqual(result.competitive.tank.rank_img.startsWith('http'), true);
   t.deepEqual(typeof(result.competitive.damage.rank), 'number');

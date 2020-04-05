@@ -1,18 +1,39 @@
-version: '3'
+version: "3.3"
 
 services:
-  api:
-    build: .
-    labels:
-      - "traefik.frontend.rule=Host:overwatch-api.docker.localhost"
-      - "traefik.port=3000"
-    command: "npm run docs"
-
-  reverse-proxy:
-    image: traefik
-    command: --api --docker
+  traefik:
+    image: traefik:v2.2
+    container_name: "traefik"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
     ports:
-      - "80:80"     # The HTTP port
-      - "8080:8080" # The Web UI (enabled by --api)
+      - "80:80"
+      - "8080:8080"
+    restart: always
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  api:
+    image: alfg/overwatch-api:latest
+    container_name: "api"
+    ports:
+      - "3000"
+    environment:
+      - "CACHE_TTL=300"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`owapi.docker.localhost`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      - "traefik.http.services.api.loadbalancer.server.port=3000"
+      - "traefik.frontend.rateLimit.extractorFunc=client.ip"
+      - "traefik.frontend.rateLimit.rateSet.r1.period=3s"
+      - "traefik.frontend.rateLimit.rateSet.r1.average=5"
+      - "traefik.frontend.rateLimit.rateSet.r1.burst=15"
+      - "traefik.frontend.rateLimit.rateSet.r2.period=10s"
+      - "traefik.frontend.rateLimit.rateSet.r2.average=25"
+      - "traefik.frontend.rateLimit.rateSet.r2.burst=50"
+    restart: always

@@ -4,6 +4,7 @@ const router = express.Router();
 import { getProfile } from '../../api/src';
 import cache from '../cache';
 import utils from '../utils';
+import config from '../config';
 
 /**
  * @api {get} /profile/:platform/:region/:tag Get profile of player.
@@ -55,9 +56,8 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const include = req.query.include && req.query.include.split(',') || null;
 
   const cacheKey = `profile_${platform}_${region}_${tag}`;
-  const timeout = 60 * 5; // 5 minutes.
 
-  cache.getOrSet(cacheKey, timeout, fnProfile, function(data) {
+  cache.getOrSet(cacheKey, config.CACHE_TTL, fnProfile, function(data) {
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {

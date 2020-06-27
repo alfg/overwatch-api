@@ -18,7 +18,7 @@ import config from '../config';
  * @apiSuccess {Object} data Profile data.
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://ow-api.herokuapp.com/profile/pc/us/user-12345
+ *  curl -i https://owapi.io/profile/pc/us/user-12345
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK

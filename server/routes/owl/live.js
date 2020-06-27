@@ -13,7 +13,7 @@ import cache from '../../cache';
  * @apiSuccess {Object} data Live Match data.
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://ow-api.herokuapp.com/owl/live
+ *  curl -i https://owapi.io/owl/live
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK

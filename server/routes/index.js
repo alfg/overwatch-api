@@ -9,7 +9,7 @@ import { name, description, version, bugs, homepage } from '../../package.json';
  * @apiGroup API
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://ow-api.herokuapp.com/
+ *  curl -i https://owapi.io/
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK
@@ -19,7 +19,7 @@ import { name, description, version, bugs, homepage } from '../../package.json';
       version: "0.0.1",
       homepage: "https://github.com/alfg/overwatch-api",
       bugs: "https://github.com/alfg/overwatch-api/issues",
-      docs: "http://ow-api.herokuapp.com/docs"
+      docs: "https://owapi.io/docs"
     }
  */
 router.get('/', (req, res) => {

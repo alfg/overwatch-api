@@ -13,7 +13,7 @@ import cache from '../../cache';
  * @apiSuccess {Object} data OWL schedule data.
  *
  * @apiExample {curl} Example usage:
- *  curl -i http://ow-api.herokuapp.com/owl/schedule
+ *  curl -i https://owapi.io/owl/schedule
  *
  * @apiSuccessExample {json} Success-Response:
     HTTP/1.1 200 OK

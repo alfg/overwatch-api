@@ -4,7 +4,7 @@
   "description": "An Unoffical Overwatch HTTP API",
   "main": "server/index.js",
   "engines": {
-    "node": ">=6.11.1 <10.3.0"
+    "node": ">=8.17.0"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -12,15 +12,15 @@
     "node-cache": "^3.2.1",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
-    "srv-cli": "0.3.6",
+    "srv-cli": "0.4.1",
     "svg-builder": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^2.4.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "nyc": "^14.1.1"
+    "@ava/babel": "^1.0.1",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/register": "^7.10.4",
+    "ava": "^3.10.1",
+    "nyc": "^15.1.0"
   },
   "scripts": {
     "start": "node node_modules/srv-cli/build/srv server/index.js",
@@ -55,17 +55,10 @@
     "files": [
       "test/**/*"
     ],
+    "babel": true,
     "require": [
-      "babel-register"
-    ],
-    "babel": {
-      "extensions": [
-        "js",
-        "jsx"
-      ],
-      "testOptions": {
-        "babelrc": false
-      }
-    }
+      "@babel/register",
+      "@babel/polyfill"
+    ]
   }
 }

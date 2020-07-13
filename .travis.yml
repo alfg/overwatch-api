@@ -1,5 +1,7 @@
 language: node_js
 node_js:
+  - 14
+  - 13
   - 12
   - 11
   - 10
@@ -9,7 +11,7 @@ before_install:
   - npm install -g npm@latest
 before_deploy:
   - cd api
-  - npm install -g babel-cli babel-preset-env
+  - npm install -g @babel/cli @babel/core @babel/preset-env
 deploy:
   provider: npm
   email: alf.g.jr@gmail.com

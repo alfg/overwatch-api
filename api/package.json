@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "typings": "index.d.ts",
   "engines": {
-    "node": ">=6.11.1"
+    "node": ">=8.17.0"
   },
   "dependencies": {
     "cheerio": "^0.22.0",
@@ -14,12 +14,14 @@
     "svg-builder": "^1.0.0"
   },
   "devDependencies": {
+    "@ava/babel": "^1.0.1",
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/register": "^7.10.4",
     "async": "^3.1.0",
-    "ava": "^2.4.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "nyc": "^14.1.1"
+    "ava": "^3.10.1",
+    "nyc": "^15.1.0"
   },
   "scripts": {
     "compile": "babel -d lib/ src/",
@@ -41,14 +43,10 @@
     "files": [
       "test/**/*"
     ],
+    "babel": true,
     "require": [
-      "babel-register"
-    ],
-    "babel": {
-      "extensions": ["js", "jsx"],
-      "testOptions": {
-        "babelrc": false
-      }
-    }
+      "@babel/register",
+      "@babel/polyfill"
+    ]
   }
 }

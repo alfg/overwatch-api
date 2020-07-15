@@ -1,5 +1,5 @@
-var NodeCache = require('node-cache');
-var myCache = new NodeCache();
+import redis from 'redis';
+import config from './config';
 
 var cache = {
   /** Gets key from cache if exists, else sets the cache and returns data.
@@ -9,42 +9,34 @@ var cache = {
   * @param {Function} callback - Callback function to send back data or value.
   */
   getOrSet: function(cacheKey, timeout, fn, callback) {
-    myCache.get(cacheKey, function(err, value) {
+    // Make redis connection.
+    const client = redis.createClient({
+      url: config.REDIS_URL
+    });
+    client.on('error', (err) => {
+      return callback(err);
+    });
+
+    // Get cacheKey. If cacheKey is not present (or expired), then set the key with a timeout.
+    client.get(cacheKey, (err, reply) => {
       if (!err) {
-        if (value == undefined) {
-          fn(function(data) {
-            if (!(data.statusCode)) {
-              myCache.set(cacheKey, data, timeout);
+        if (!reply) {
+
+          // Run function to get data to cache.
+          fn((data) => {
+            if (!data.statusCode) {
+              client.set(cacheKey, JSON.stringify(data), 'EX', timeout, (err, reply) => {
+                if (err) {
+                  return callback(err);
+                }
+              });
             }
-            callback(data);
+            return callback(data);
           });
         } else {
-          callback(value);
+          return callback(JSON.parse(reply));
         }
       }
-    });
-  },
-
-  get: function(cacheKey, callback) {
-    myCache.get(cacheKey, function(err, value) {
-      if (!err) {
-        if (value == undefined) {
-          callback(value);
-        } else {
-          callback(value);
-        }
-      }
-    });
-  },
-
-  set: function(cacheKey, timeout, fn, callback) {
-    fn(function(data) {
-      myCache.set(cacheKey, data, timeout, function(err, success) {
-        if (!err && success) {
-          callback(data);
-        }
-        callback();
-      });
     });
   }
 }

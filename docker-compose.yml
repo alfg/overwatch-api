@@ -1,35 +1,18 @@
-version: "3.3"
+version: "3.8"
 
 services:
-  traefik:
-    image: traefik:v2.2
-    container_name: "traefik"
-    command:
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+  overwatch-api:
+    # image: alfg/overwatch-api:latest
+    build: ./
     ports:
-      - "80:80"
-      - "8080:8080"
-    restart: always
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-  api:
-    image: alfg/overwatch-api:latest
-    container_name: "api"
-    ports:
-      - "3000"
+      - "3000:3000"
     environment:
-      - "CACHE_TTL=1200"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`owapi.docker.localhost`, `owapi.io`, `www.owapi.io`, `api.owapi.io`)"
-      - "traefik.http.routers.api.entrypoints=web"
-      - "traefik.http.services.api.loadbalancer.server.port=3000"
-      - "traefik.http.routers.api.middlewares=ratelimit"
-      - "traefik.http.middlewares.ratelimit.ratelimit.average=20"
-      - "traefik.http.middlewares.ratelimit.ratelimit.burst=15"
-    restart: always
+      - CACHE_TTL=30
+      - REDIS_URL=redis://redis:6379
+    links:
+      - redis
+    
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"

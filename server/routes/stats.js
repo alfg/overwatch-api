@@ -39,7 +39,9 @@ router.get('/:platform/:region/:tag', (req, res) => {
 
   const cacheKey = `stats_${platform}_${region}_${tag}`;
 
-  cache.getOrSet(cacheKey, config.CACHE_TTL, fnStats, function(data) {
+  cache.getOrSet(cacheKey, config.CACHE_TTL, fnStats, function(err, data) {
+    if (err) return res.json({ message: err.toString() });
+
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {

@@ -25,7 +25,9 @@ router.get('/', (req, res) => {
   const cacheKey = `owl_schedule_`;
   const timeout = 30; // 30 seconds.
 
-  cache.getOrSet(cacheKey, timeout, fnSchedule, function(data) {
+  cache.getOrSet(cacheKey, timeout, fnSchedule, function(err, data) {
+    if (err) return res.json({ message: err.toString() });
+
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {

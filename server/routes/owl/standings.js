@@ -25,7 +25,9 @@ router.get('/', (req, res) => {
   const cacheKey = `owl_standings_`;
   const timeout = 30; // 30 seconds.
 
-  cache.getOrSet(cacheKey, timeout, fnStandings, function(data) {
+  cache.getOrSet(cacheKey, timeout, fnStandings, function(err, data) {
+    if (err) return res.json({ message: err.toString() });
+
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
     } else {

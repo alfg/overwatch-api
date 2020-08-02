@@ -9,8 +9,8 @@ import { createEndorsementSVG } from './svg';
 // Get HTML from playoverwatch career page.
 function getHTML(platform, region, tag, callback) {
   const url = platform === 'pc'
-    ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}`
-    : `https://playoverwatch.com/en-us/career/${platform}/${tag}`;
+    ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}/`
+    : `https://playoverwatch.com/en-us/career/${platform}/${tag}/`;
 
   const options = {
     uri: encodeURI(url),
@@ -18,6 +18,9 @@ function getHTML(platform, region, tag, callback) {
   }
 
   return request(options, (err, res, body) => {
+    if (res.statusCode !== 200) {
+      return callback(new Error('Profile not found'));
+    }
     return callback(err, body);
   });
 }

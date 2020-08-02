@@ -40,7 +40,7 @@ router.get('/:platform/:region/:tag', (req, res) => {
   const cacheKey = `stats_${platform}_${region}_${tag}`;
 
   cache.getOrSet(cacheKey, config.CACHE_TTL, fnStats, function(err, data) {
-    if (err) return res.json({ message: err.toString() });
+    if (err) return res.json({ message: err.message });
 
     if (data.statusCode) {
       res.status(data.response.statusCode).send(data.response.statusMessage);
@@ -53,7 +53,7 @@ router.get('/:platform/:region/:tag', (req, res) => {
   function fnStats(callback) {
     getStats(platform, region, tag, (err, data) => {
       if (err) return callback({ message: err.toString()});
-      callback(data);
+      return callback(data);
     });
   }
 });

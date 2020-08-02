@@ -27,13 +27,11 @@ var cache = {
       if (reply) return callback(null, JSON.parse(reply));
 
       // Run function to get data to cache with an expiration.
-      fn((data) => {
-        if (!data.statusCode) {
-          client.set(cacheKey, JSON.stringify(data), 'EX', timeout, (err, reply) => {
-            if (err) return callback(err);
-          });
-        }
-        return callback(null, data);
+      fn((err, data) => {
+        if (err) return callback(err);
+        client.set(cacheKey, JSON.stringify(data), 'EX', timeout, (err, reply) => {
+          if (err) return callback(err);
+        });
       });
     });
   }

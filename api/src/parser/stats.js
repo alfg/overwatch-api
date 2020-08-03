@@ -1,10 +1,10 @@
 import path from 'path';
 import async from 'async';
 import cheerio from 'cheerio';
-import request from 'request';
-import { getPrestigeLevel, getPrestigeStars } from './utils';
+import { getPrestigeLevel, getPrestigeStars, retryRequest } from './utils';
 import { createEndorsementSVG } from './svg';
 
+const MAX_RETRIES = 3;
 
 // Get HTML from playoverwatch career page.
 function getHTML(platform, region, tag, callback) {
@@ -16,13 +16,7 @@ function getHTML(platform, region, tag, callback) {
     uri: encodeURI(url),
     encoding: 'utf8'
   }
-
-  return request(options, (err, res, body) => {
-    if (res.statusCode !== 200) {
-      return callback(new Error('Profile not found'));
-    }
-    return callback(err, body);
-  });
+  return retryRequest(options, MAX_RETRIES, callback);
 }
 
 // Begin html parsing.

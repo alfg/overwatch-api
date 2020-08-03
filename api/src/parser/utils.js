@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+import request from 'request';
+
 // Credit to @relaera on https://github.com/Fuyukai/OWAPI/pull/270 for this data.
 const prestigeLevels = {
   "1055f5ae3a84b7bd8afa9fcbd2baaf9a412c63e8fe5411025b3264db12927771": 0,  // Bronze Lv 1
@@ -94,4 +97,18 @@ export function getPrestigeStars(val) {
         return prestigeStars[val];
     }
     return 0;
+}
+
+export function retryRequest(options, retries = 3, callback) {
+  request(options, (err, res, body) => {
+    if (res.statusCode === 200) return callback(null, body);
+
+    // Do retry if status is unsuccessful.
+    if (res.statusCode !== 200 && retries > 0) {
+      console.error(`got status: ${res.statusCode} for uri: ${options.uri}. retries: ${retries}`)
+      return retryRequest(options, retries - 1, callback);
+    } else {
+      return callback(new Error('Profile not found'));
+    }
+  });
 }

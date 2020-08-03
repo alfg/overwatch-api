@@ -32,6 +32,7 @@ var cache = {
         client.set(cacheKey, JSON.stringify(data), 'EX', timeout, (err, reply) => {
           if (err) return callback(err);
         });
+        return callback(null, data);
       });
     });
   }

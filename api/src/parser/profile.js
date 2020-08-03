@@ -1,25 +1,22 @@
 import path from 'path';
 import async from 'async';
 import cheerio from 'cheerio';
-import request from 'request';
-import { getPrestigeLevel, getPrestigeStars } from './utils';
+import { getPrestigeLevel, getPrestigeStars, retryRequest } from './utils';
 import { createEndorsementSVG } from './svg';
 
+const MAX_RETRIES = 3;
 
 // Get HTML from playoverwatch career page.
 function getHTML(platform, region, tag, callback) {
   const url = platform === 'pc'
-    ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}`
-    : `https://playoverwatch.com/en-us/career/${platform}/${tag}`;
+    ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}/`
+    : `https://playoverwatch.com/en-us/career/${platform}/${tag}/`;
 
   const options = {
     uri: encodeURI(url),
     encoding: 'utf8'
   }
-
-  return request(options, (err, res, body) => {
-    return callback(err, body);
-  });
+  return retryRequest(options, MAX_RETRIES, callback);
 }
 
 // Begin html parsing.

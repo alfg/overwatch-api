@@ -1,6 +1,6 @@
 {
   "name": "overwatch-api",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "An Unoffical Overwatch API.",
   "main": "lib/index.js",
   "typings": "index.d.ts",
@@ -8,6 +8,7 @@
     "node": ">=8.17.0"
   },
   "dependencies": {
+    "async": "^3.1.0",
     "cheerio": "^0.22.0",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
@@ -19,7 +20,6 @@
     "@babel/core": "^7.10.4",
     "@babel/polyfill": "^7.10.4",
     "@babel/register": "^7.10.4",
-    "async": "^3.1.0",
     "ava": "^3.10.1",
     "nyc": "^15.1.0"
   },

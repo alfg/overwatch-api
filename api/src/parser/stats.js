@@ -34,7 +34,7 @@ function parseHTML(results, callback) {
     level: $('.player-level div').first().text(),
     portrait: $('.player-portrait').attr('src'),
     permission: $('.masthead-permission-level-text').text(),
-    endorsementLevel: $('.masthead .endorsement-level div').last().text(),
+    endorsementLevel: $('.masthead .EndorsementIcon-tooltip div').last().text(),
     endorsementFrameEl: $('.masthead .EndorsementIcon').attr('style'),
     sportsmanshipValue: $('.masthead .EndorsementIcon-border--sportsmanship').data('value'),
     shotcallerValue: $('.masthead .EndorsementIcon-border--shotcaller').data('value'),

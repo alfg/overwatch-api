@@ -12,7 +12,7 @@ test.before.cb(t => {
   });
 });
 
-test('get base schedule data', t => {
+test.skip('get base schedule data', t => {
   t.deepEqual(typeof(result.data), 'object');
   t.deepEqual(typeof(result.data.startDate), 'string');
   t.deepEqual(typeof(result.data.endDate), 'string');

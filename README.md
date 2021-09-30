@@ -29,7 +29,7 @@ If you wish to use the Javascript API in your own project, see [api/README.md](a
 ## Demo
 
 ```
-curl http://owapi.io/profile/pc/us/Jay3-11118
+curl http://owapi.io/profile/pc/us/Jay3-11894
 ```
 ```json
 {

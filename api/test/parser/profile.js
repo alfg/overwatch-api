@@ -3,7 +3,7 @@ import { getProfile } from '../../src/parser';
 
 const platform = 'pc'
 const region = 'us'
-const tag = 'Jay3-11118'
+const tag = 'Jay3-11894'
 
 var result;
 

@@ -87,7 +87,7 @@ curl http://owapi.io/profile/pc/us/Jay3-11894
   },
   "levelFrame": "https://d15f34w2p8l1cc.cloudfront.net/overwatch/9e8600f97ea4a84d822d8b336f2b1dbfe7372fb9f2b6bf1d0336193567f6f943.png",
   "star": "https://d15f34w2p8l1cc.cloudfront.net/overwatch/cd877430ccc400c10e24507dba972e24a4543edc05628045300f1349cf003f3a.png"
-}}
+}
 ```
 
 ## Install

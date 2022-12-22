@@ -1,16 +1,12 @@
-import path from 'path';
 import async from 'async';
 import cheerio from 'cheerio';
-import { getPrestigeLevel, getPrestigeStars, retryRequest } from './utils';
-import { createEndorsementSVG } from './svg';
+import { retryRequest } from './utils';
 
 const MAX_RETRIES = 3;
 
 // Get HTML from playoverwatch career page.
 function getHTML(platform, region, tag, callback) {
-  const url = platform === 'pc'
-    ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}/`
-    : `https://playoverwatch.com/en-us/career/${platform}/${tag}/`;
+  const url = `https://overwatch.blizzard.com/en-us/career/${tag}/`
 
   const options = {
     uri: encodeURI(url),
@@ -24,35 +20,16 @@ function parseHTML(results, callback) {
   const $ = cheerio.load(results.getHTML);
 
   // Check if profile exists.
-  const isFound = $('.content-box h1').text() !== 'Profile Not Found';
+  const isFound = $('.heading').text() !== 'Page Not Found';
   if (!isFound) {
     return callback(new Error('Profile not found'));
   }
 
   const parsed = {
-    user: $('.header-masthead').text(),
-    level: $('.player-level div').first().text(),
-    portrait: $('.player-portrait').attr('src'),
-    permission: $('.masthead-permission-level-text').text(),
-    endorsementLevel: $('.masthead .EndorsementIcon-tooltip div').last().text(),
-    endorsementFrameEl: $('.masthead .EndorsementIcon').attr('style'),
-    sportsmanshipValue: $('.masthead .EndorsementIcon-border--sportsmanship').data('value'),
-    shotcallerValue: $('.masthead .EndorsementIcon-border--shotcaller').data('value'),
-    teammateValue: $('.masthead .EndorsementIcon-border--teammate').data('value'),
-    starEl: $('.player-rank').html(),
-    rankEl: $('.player-level').html(),
-  }
-
-  if (parsed.endorsementFrameEl) {
-    parsed.endorsementFrame = $('.masthead .EndorsementIcon').attr('style').slice(21, -1).replace(/ /g, '');
-  }
-
-  if (parsed.starEl !== null) {
-    parsed.star = $('.player-level .player-rank').attr('style').slice(21, -1).replace(/ /g, '');
-  }
-
-  if (parsed.rankEl !== null) {
-    parsed.rank = $('.player-level').attr('style').slice(21, -1).replace(/ /g, '');
+    user: $('.Profile-player--name').text(),
+    portrait: $('.Profile-player--portrait').attr('src'),
+    permission: $('.Profile-private---msg').text(),
+    endorsementImage: $('.Profile-playerSummary--endorsement').attr('src'),
   }
 
   const stats = {};
@@ -81,14 +58,14 @@ function parseHTML(results, callback) {
   // Quickplay.
   stats['top_heroes'] = { quickplay: {} };
   Object.keys(topHeroCategories.quickplay).forEach((k) => {
-    const topHeroesEls = $(`#quickplay [data-category-id="${topHeroCategories.quickplay[k]}"]`)
-      .find('.progress-category-item');
+    const topHeroesEls = $(`.Profile-heroSummary--view.quickPlay-view [data-category-id="${topHeroCategories.quickplay[k]}"]`)
+      .find('.Profile-progressBar');
     let topHeroes = [];
     topHeroesEls.each(function(i, el) {
       const stat = {};
-      stat.hero = $(this).find('.ProgressBar-title').text();
-      stat.img = $(this).find('.ProgressBar-thumb').attr('src');
-      stat[k] = $(this).find('.ProgressBar-description').text();
+      stat.hero = $(this).find('.Profile-progressBar-title').text();
+      stat.img = $(this).find('.Profile-progressBar--icon').attr('src');
+      stat[k] = $(this).find('.Profile-progressBar-description').text();
       topHeroes.push(stat);
     });
     stats['top_heroes']['quickplay'][k] = topHeroes;
@@ -97,14 +74,14 @@ function parseHTML(results, callback) {
   // Competitive.
   stats['top_heroes']['competitive'] = {};
   Object.keys(topHeroCategories.competitive).forEach((k) => {
-    const topHeroesEls = $(`#competitive [data-category-id="${topHeroCategories.competitive[k]}"]`)
-      .find('.progress-category-item');
+    const topHeroesEls = $(`.Profile-heroSummary--view.competitive-view [data-category-id="${topHeroCategories.competitive[k]}"]`)
+      .find('.Profile-progressBar');
     let topHeroes = [];
     topHeroesEls.each(function(i, el) {
       const stat = {};
-      stat.hero = $(this).find('.ProgressBar-title').text();
-      stat.img = $(this).find('.ProgressBar-thumb').attr('src');
-      stat[k] = $(this).find('.ProgressBar-description').text();
+      stat.hero = $(this).find('.Profile-progressBar-title').text();
+      stat.img = $(this).find('.Profile-progressBar--icon').attr('src');
+      stat[k] = $(this).find('.Profile-progressBar-description').text();
       topHeroes.push(stat);
     });
     stats['top_heroes']['competitive'][k] = topHeroes;
@@ -125,12 +102,12 @@ function parseHTML(results, callback) {
 
   // Quickplay Stats.
   statCategories.forEach(function(item) {
-    const els = $(`#quickplay [data-category-id="0x02E00000FFFFFFFF"] h5:contains("${item}")`).closest('table').find('tbody tr');
+    const els = $(`.stats.quickPlay-view .option-0 .category .content .header p:contains("${item}")`).closest('.content').find('.stat-item');
     let statsArr = [];
     els.each(function(i, el) {
       let stat = {};
-      stat.title = $(this).find('td').first().text();
-      stat.value = $(this).find('td').next().text();
+      stat.title = $(this).find('.name').text();
+      stat.value = $(this).find('.value').text();
       statsArr.push(stat);
     });
     item = item.replace(' ', '_').toLowerCase();
@@ -140,12 +117,12 @@ function parseHTML(results, callback) {
 
   // Competitive Stats.
   statCategories.forEach(function(item) {
-    const els = $(`#competitive [data-category-id="0x02E00000FFFFFFFF"] h5:contains("${item}")`).closest('table').find('tbody tr');
+    const els = $(`.stats.competitive-view .option-0 .category .content .header p:contains("${item}")`).closest('.content').find('.stat-item');
     let statsArr = [];
     els.each(function(i, el) {
       let stat = {};
-      stat.title = $(this).find('td').first().text();
-      stat.value = $(this).find('td').next().text();
+      stat.title = $(this).find('.name').text();
+      stat.value = $(this).find('.value').text();
       statsArr.push(stat);
     });
     item = item.replace(' ', '_').toLowerCase();
@@ -161,31 +138,10 @@ function transform(results, callback) {
   const { parseHTML } = results;
   const { stats, parsed } = parseHTML;
 
-  const endorsement = {
-    sportsmanship: { value: parsed.sportsmanshipValue, rate: parseFloat((parsed.sportsmanshipValue * 100).toFixed(2)) },
-    shotcaller: { value: parsed.shotcallerValue, rate: parseFloat((parsed.shotcallerValue * 100).toFixed(2)) },
-    teammate: { value: parsed.teammateValue, rate: parseFloat((parsed.teammateValue * 100).toFixed(2)) },
-    level: parseInt(parsed.endorsementLevel),
-    frame: parsed.endorsementFrame,
-  };
-  endorsement.icon = createEndorsementSVG(endorsement);
-
-  // Calculate the prestige level.
-  let level = parsed.level;
-  if (parsed.star && parsed.rank) {
-    const starsMatch = path.basename(parsed.star).split('.').slice(0, -1)[0];
-    const rankMatch = path.basename(parsed.rank).split('.').slice(0, -1)[0];
-    const stars = starsMatch ? getPrestigeStars(starsMatch) : 0;
-    const rank = rankMatch ? getPrestigeLevel(rankMatch) : 0;
-    const prestige = parseInt(stars) + parseInt(rank);
-    level = parseInt(parsed.level) + (parseInt(prestige) * 100);
-  }
-
   const json = {
     username: parsed.user,
-    level: parseInt(level),
     portrait: parsed.portrait,
-    endorsement: endorsement,
+    endorsement: parsed.endorsementImage,
     private: parsed.permission === 'Private Profile',
     stats: stats
   }

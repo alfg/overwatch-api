@@ -18,10 +18,7 @@ test.before.cb(t => {
 
 test('get base information of user profile', t => {
   t.deepEqual(typeof(result.username), 'string');
-  t.deepEqual(typeof(result.level), 'number');
   t.deepEqual(result.portrait.startsWith('http'), true);
-  t.deepEqual(result.levelFrame.startsWith('http'), true);
-  t.deepEqual(result.star.startsWith('http'), true);
 });
 
 test('get information of games played by user', t => {

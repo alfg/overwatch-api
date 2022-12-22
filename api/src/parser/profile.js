@@ -1,16 +1,12 @@
-import path from 'path';
 import async from 'async';
 import cheerio from 'cheerio';
-import { getPrestigeLevel, getPrestigeStars, retryRequest } from './utils';
-import { createEndorsementSVG } from './svg';
+import { retryRequest } from './utils';
 
 const MAX_RETRIES = 3;
 
 // Get HTML from playoverwatch career page.
 function getHTML(platform, region, tag, callback) {
-  const url = platform === 'pc'
-    ? `https://playoverwatch.com/en-us/career/${platform}/${region}/${tag}/`
-    : `https://playoverwatch.com/en-us/career/${platform}/${tag}/`;
+  const url = `https://overwatch.blizzard.com/en-us/career/${tag}/`
 
   const options = {
     uri: encodeURI(url),
@@ -24,58 +20,24 @@ function parseHTML(results, callback) {
   const $ = cheerio.load(results.getHTML);
 
   // Check if profile exists.
-  const isFound = $('.content-box h1').text() !== 'Profile Not Found';
+  const isFound = $('.heading').text() !== 'Page Not Found';
   if (!isFound) {
     return callback(new Error('Profile not found'));
   }
 
   const parsed = {
-    user: $('.header-masthead').text(),
-    level: $('.player-level div').first().text(),
-    portrait: $('.player-portrait').attr('src'),
-    permission: $('.masthead-permission-level-text').text(),
-    endorsementLevel: $('.masthead .EndorsementIcon-tooltip div').last().text(),
-    endorsementFrameEl: $('.masthead .EndorsementIcon').attr('style'),
-    sportsmanshipValue: $('.masthead .EndorsementIcon-border--sportsmanship').data('value'),
-    shotcallerValue: $('.masthead .EndorsementIcon-border--shotcaller').data('value'),
-    teammateValue: $('.masthead .EndorsementIcon-border--teammate').data('value'),
-    quickplayWonEl: $('#quickplay td:contains("Games Won")').next().html(),
-    quickplayPlayedEl: $('#quickplay td:contains("Games Played")').next().html(),
-    quickplayTimePlayedEl: $('#quickplay td:contains("Time Played")').next().html(),
-    compWonEl: $('#competitive td:contains("Games Won")').next().html(),
-    compPlayedEl: $('#competitive td:contains("Games Played")').next().html(),
-    compLostEl: $('#competitive td:contains("Games Lost")').next().html(),
-    compDrawEl: $('#competitive td:contains("Games Tied")').next().html(),
-    compTimePlayedEl: $('#competitive td:contains("Time Played")').next().html(),
-    compRankEl: $('.competitive-rank'),
-    levelFrameEl: $('.player-level').attr('style'),
-    starEl: $('.player-rank').attr('style'),
-    rankEl: $('.player-level').attr('style'),
-  }
-
-  if (parsed.compRankEl !== null) {
-    parsed.compRankImgTank = $('.competitive-rank div[data-ow-tooltip-text="Tank Skill Rating"] img').attr('src') || null;
-    parsed.compRankImgDamage = $('.competitive-rank div[data-ow-tooltip-text="Damage Skill Rating"] img').attr('src') || null;
-    parsed.compRankImgSupport = $('.competitive-rank div[data-ow-tooltip-text="Support Skill Rating"] img').attr('src') || null;
-    parsed.compRankElTank = $('.competitive-rank div[data-ow-tooltip-text="Tank Skill Rating"]').next().html();
-    parsed.compRankElDamage = $('.competitive-rank div[data-ow-tooltip-text="Damage Skill Rating"]').next().html();
-    parsed.compRankElSupport = $('.competitive-rank div[data-ow-tooltip-text="Support Skill Rating"]').next().html();
-  }
-
-  if (parsed.levelFrameEl) {
-    parsed.levelFrame = parsed.levelFrameEl.slice(21, -1).replace(/ /g, '');
-  }
-
-  if (parsed.endorsementFrameEl) {
-    parsed.endorsementFrame = parsed.endorsementFrameEl.slice(21, -1).replace(/ /g, '');
-  }
-
-  if (parsed.starEl) {
-    parsed.star = parsed.starEl.slice(21, -1).replace(/ /g, '');
-  }
-
-  if (parsed.rankEl) {
-    parsed.rank = parsed.rankEl.slice(21, -1).replace(/ /g, '');
+    user: $('.Profile-player--name').text(),
+    portrait: $('.Profile-player--portrait').attr('src'),
+    permission: $('.Profile-private---msg').text(),
+    endorsementImage: $('.Profile-playerSummary--endorsement').attr('src'),
+    quickplayWonEl: $('.stats.quickPlay-view p:contains("Games Won")').next().html(),
+    quickplayPlayedEl: $('.stats.quickPlay-view p:contains("Games Played")').next().html(),
+    quickplayTimePlayedEl: $('.stats.quickPlay-view p:contains("Time Played")').next().html(),
+    compWonEl: $('.stats.competitive-view p:contains("Games Won")').next().html(),
+    compPlayedEl: $('.stats.competitive-view p:contains("Games Played")').next().html(),
+    compLostEl: $('.stats.competitive-view p:contains("Games Lost")').next().html(),
+    compDrawEl: $('.stats.competitive-view p:contains("Games Tied")').next().html(),
+    compTimePlayedEl: $('.stats.competitive-view p:contains("Time Played")').next().html(),
   }
   return callback(null, parsed);
 }
@@ -83,15 +45,6 @@ function parseHTML(results, callback) {
 // Transform the data into a json object we can serve.
 function transform(results, callback) {
   const { parseHTML: parsed } = results;
-
-  const endorsement = {
-    sportsmanship: { value: parsed.sportsmanshipValue, rate: parseFloat((parsed.sportsmanshipValue * 100).toFixed(2)) },
-    shotcaller: { value: parsed.shotcallerValue, rate: parseFloat((parsed.shotcallerValue * 100).toFixed(2)) },
-    teammate: { value: parsed.teammateValue, rate: parseFloat((parsed.teammateValue * 100).toFixed(2)) },
-    level: parseInt(parsed.endorsementLevel),
-    frame: parsed.endorsementFrame || null,
-  };
-  endorsement.icon = createEndorsementSVG(endorsement);
 
   const won = {};
   const lost = {};
@@ -131,23 +84,11 @@ function transform(results, callback) {
     time.competitive = parsed.compTimePlayedEl.trim().replace(/,/g, '');
   }
 
-  // Calculate the prestige level.
-  let level = parsed.level;
-  if (parsed.star && parsed.rank) {
-    const starsMatch = path.basename(parsed.star).split('.').slice(0, -1)[0];
-    const rankMatch = path.basename(parsed.rank).split('.').slice(0, -1)[0];
-    const stars = starsMatch ? getPrestigeStars(starsMatch) : 0;
-    const rank = rankMatch ? getPrestigeLevel(rankMatch) : 0;
-    const prestige = parseInt(stars) + parseInt(rank);
-    level = parseInt(parsed.level) + (parseInt(prestige) * 100);
-  }
-
   const json = {
     username: parsed.user,
-    level: parseInt(level),
     portrait: parsed.portrait,
-    endorsement: endorsement,
-    private: parsed.permission === 'Private Profile',
+    endorsement: parsed.endorsementImage,
+    private: parsed.permission === 'THIS PROFILE IS CURRENTLY PRIVATE',
     games: {
       quickplay: {
         won: parseInt(won.quickplay),
@@ -162,22 +103,6 @@ function transform(results, callback) {
       },
     },
     playtime: { quickplay: time.quickplay, competitive: time.competitive },
-    competitive: { 
-      tank: {
-        rank: parseInt(parsed.compRankElTank), 
-        rank_img: parsed.compRankImgTank 
-      },
-      damage: {
-        rank: parseInt(parsed.compRankElDamage), 
-        rank_img: parsed.compRankImgDamage
-      },
-      support: {
-        rank: parseInt(parsed.compRankElSupport), 
-        rank_img: parsed.compRankImgSupport
-      }
-    },
-    levelFrame: parsed.levelFrame,
-    star: parsed.star
   }
 
   return callback(null, json);

@@ -18,7 +18,6 @@ test.before.cb(t => {
 
 test('get base information of user profile', t => {
   t.deepEqual(typeof(result.username), 'string');
-  t.deepEqual(typeof(result.level), 'number');
   t.deepEqual(result.portrait.startsWith('http'), true);
 });
 

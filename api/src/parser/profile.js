@@ -28,6 +28,7 @@ function parseHTML(results, callback) {
   const parsed = {
     user: $('.Profile-player--name').text(),
     portrait: $('.Profile-player--portrait').attr('src'),
+    title: $('.Profile-player---title').text(),
     permission: $('.Profile-private---msg').text(),
     endorsementImage: $('.Profile-playerSummary--endorsement').attr('src'),
     quickplayWonEl: $('.stats.quickPlay-view p:contains("Games Won")').next().html(),
@@ -38,7 +39,25 @@ function parseHTML(results, callback) {
     compLostEl: $('.stats.competitive-view p:contains("Games Lost")').next().html(),
     compDrawEl: $('.stats.competitive-view p:contains("Games Tied")').next().html(),
     compTimePlayedEl: $('.stats.competitive-view p:contains("Time Played")').next().html(),
+    compRankEls: $('.Profile-playerSummary--rankWrapper').find('.Profile-playerSummary--roleWrapper'),
   }
+
+  if (parsed.compRankEls) {
+    const r = {};
+    parsed.compRankEls.each((i, elem) => {
+      const rankImgSrc = $(elem).find('img.Profile-playerSummary--rank').attr('src');
+      const roleImgSrc = $(elem).find('.Profile-playerSummary--role img').attr('src');
+      const rankParsed = rankImgSrc.split('/').pop().split('#')[0].split('-');
+      const role = roleImgSrc.split('/').pop().split('#')[0].split('-')[0];
+
+      const rank = `${rankParsed[0].replace('Tier', '')} ${rankParsed[1]}`;
+      const obj = { rank, icon: rankImgSrc };
+      r[role] = obj;
+    });
+
+    parsed.ranks = r;
+  }
+
   return callback(null, parsed);
 }
 
@@ -103,6 +122,7 @@ function transform(results, callback) {
       },
     },
     playtime: { quickplay: time.quickplay, competitive: time.competitive },
+    competitive: parsed.ranks,
   }
 
   return callback(null, json);

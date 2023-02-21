@@ -28,6 +28,7 @@ function parseHTML(results, callback) {
   const parsed = {
     user: $('.Profile-player--name').text(),
     portrait: $('.Profile-player--portrait').attr('src'),
+    title: $('.Profile-player---title').text(),
     permission: $('.Profile-private---msg').text(),
     endorsementImage: $('.Profile-playerSummary--endorsement').attr('src'),
   }

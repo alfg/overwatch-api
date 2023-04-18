@@ -7,9 +7,13 @@ const MAX_RETRIES = 3;
 // Get HTML from playoverwatch career page.
 function getHTML(platform, region, tag, callback) {
   const url = `https://overwatch.blizzard.com/en-us/career/${tag}/`
+  const ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:112.0) Gecko/20100101 Firefox/112.0';
 
   const options = {
     uri: encodeURI(url),
+    headers: {
+      'User-Agent': ua,
+    },
     encoding: 'utf8'
   }
   return retryRequest(options, MAX_RETRIES, callback);

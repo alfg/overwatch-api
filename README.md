@@ -21,7 +21,7 @@ Your profile *MUST* be public to view most profile and career stats with this AP
 Source: https://playoverwatch.com/en-us/news/patch-notes/pc#patch-47946
 
 ## API Docs
-See: https://owapi.io/docs/
+See: http://localhost:3000/docs/
 
 ## NPM Module
 If you wish to use the Javascript API in your own project, see [api/README.md](api/README.md).
@@ -29,7 +29,7 @@ If you wish to use the Javascript API in your own project, see [api/README.md](a
 ## Demo
 
 ```
-curl http://owapi.io/profile/pc/us/Jay3-11894
+curl http://localhost:3000/profile/pc/us/Jay3-11894
 ```
 ```json
 {

@@ -38,7 +38,7 @@ declare namespace OverwatchAPI {
         games: {
             quickplay: {
                 won: number,
-                played: undefined
+                played?: number,
             },
             competitive: {
                 won: number,
@@ -54,15 +54,15 @@ declare namespace OverwatchAPI {
         },
         competitive: {
             tank: {
-                rank: number,
+                rank: string,
                 rank_img: string
             },
             damage: {
-                rank: number,
+                rank: string,
                 rank_img: string
             },
             support: {
-                rank: number,
+                rank: string,
                 rank_img: string
             }
         },
